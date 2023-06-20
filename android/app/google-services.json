@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "934065469907",
+    "project_id": "care-flow",
+    "storage_bucket": "care-flow.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:934065469907:android:cecfc45dee9fe2113b5726",
+        "android_client_info": {
+          "package_name": "com.example.care_flow"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "934065469907-ivhmehhekuuo86hrep1081gt12vajmr7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBakUaP_xudz0zgQ5_yPMdjcvEOoc8jaNI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "934065469907-ivhmehhekuuo86hrep1081gt12vajmr7.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
