@@ -1,3 +1,4 @@
+import 'package:care_flow/bloc_observer.dart';
 import 'package:care_flow/core/cache_helper.dart';
 import 'package:care_flow/core/routing/router.dart';
 import 'package:care_flow/core/routing/routes.dart';
@@ -5,6 +6,7 @@ import 'package:care_flow/core/utils/strings.dart';
 import 'package:care_flow/core/utils/theme.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 
@@ -21,6 +23,7 @@ void main() async {
   //   initialRoute = Routes.loginRoute;
   // }
   runApp( const MyApp());
+  Bloc.observer = MyBlocObserver();
 }
 
 class MyApp extends StatelessWidget {
@@ -37,7 +40,7 @@ class MyApp extends StatelessWidget {
         title: 'Care Flow',
         theme: MyTheme.lightTheme(),
         onGenerateRoute: AppRouter().generateRoute,
-        initialRoute:Routes.layoutRoute,
+        initialRoute:Routes.chooseRole,
       ),
     );
   }

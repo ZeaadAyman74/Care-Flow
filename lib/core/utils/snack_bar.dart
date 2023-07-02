@@ -11,9 +11,9 @@ abstract class AppFunctions {
           content: Text(message,style: Theme.of(context).textTheme.bodySmall!.copyWith(fontSize: 20,color: Colors.white),),
           duration: const Duration(seconds: 2),
           behavior: SnackBarBehavior.floating,
-          margin: const EdgeInsetsDirectional.symmetric(vertical: 10),
+          margin:  EdgeInsetsDirectional.symmetric(vertical: 10.h,horizontal: 8.w),
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-          padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 4.h),
+          padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 10.h),
         ));
   }
 

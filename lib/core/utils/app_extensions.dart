@@ -8,8 +8,8 @@ extension MediaQueryExtension on BuildContext {
 }
 
 extension NavigationExtension on BuildContext {
-  void push(String routeName){
-    Navigator.pushNamed(this, routeName);
+  void push(String routeName,{Map<String,dynamic>? arg}){
+    Navigator.pushNamed(this, routeName,arguments: arg);
   }
 
   void pushAndRemove(String routeName){
