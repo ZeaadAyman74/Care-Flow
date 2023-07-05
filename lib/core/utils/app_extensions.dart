@@ -15,6 +15,9 @@ extension NavigationExtension on BuildContext {
   void pushAndRemove(String routeName){
     Navigator.pushNamedAndRemoveUntil(this, routeName, (route) => false);
   }
+  void popAndRemove(String routeName){
+    Navigator.popUntil(this, ModalRoute.withName(routeName));
+  }
   void pop(){
     return Navigator.pop(this);
   }

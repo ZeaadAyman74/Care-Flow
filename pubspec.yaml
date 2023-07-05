@@ -31,6 +31,9 @@ dependencies:
   font_awesome_flutter: ^10.4.0
   auto_size_text: ^3.0.0
   dotted_line: ^3.2.2
+  path_provider: ^2.0.15
+  http: ^0.13.6
+  path: ^1.8.2
 
 dev_dependencies:
   flutter_test:
@@ -57,7 +60,6 @@ flutter:
      - assets/images/heart.jpg
      - assets/images/skin.jpg
      - assets/images/Urologist.jpg
-
 
 
 

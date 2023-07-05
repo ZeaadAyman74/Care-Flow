@@ -9,7 +9,8 @@ class SelectPhotoOptionsScreen extends StatelessWidget {
     Key? key,
     required this.cubit,
   }) : super(key: key);
-final cubit;
+  final cubit;
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -30,14 +31,14 @@ final cubit;
               icon: Icons.image,
               textLabel: 'Browse Gallery',
             ),
-             SizedBox(
+            SizedBox(
               height: 10.h,
             ),
-             Text(
-               'OR',
-               style: TextStyle(fontSize: 18.sp),
-             ),
-             SizedBox(
+            Text(
+              'OR',
+              style: TextStyle(fontSize: 18.sp),
+            ),
+            SizedBox(
               height: 10.h,
             ),
             SelectPhoto(
@@ -59,7 +60,6 @@ final cubit;
               ),
             ),
           ),
-
         ],
       ),
     );

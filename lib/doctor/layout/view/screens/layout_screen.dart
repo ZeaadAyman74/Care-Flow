@@ -14,6 +14,16 @@ class LayoutScreen extends StatefulWidget {
 }
 
 class _LayoutScreenState extends State<LayoutScreen> {
+  void getDoctorData() async {
+    LayoutCubit.get(context).getCurrentDoctor();
+  }
+
+  @override
+  void initState() {
+    getDoctorData();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -57,8 +67,12 @@ class _LayoutScreenState extends State<LayoutScreen> {
                 text: 'Home',
               ),
               GButton(
-                icon: FontAwesomeIcons.book,
-                text: 'Diagnostics',
+                icon: Icons.question_mark,
+                text: 'Requests',
+              ),
+              GButton(
+                icon: Icons.question_answer,
+                text: 'Responses',
               ),
             ],
             selectedIndex: LayoutCubit.get(context).selectedIndex,
