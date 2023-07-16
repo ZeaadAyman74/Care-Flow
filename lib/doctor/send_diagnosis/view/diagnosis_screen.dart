@@ -1,3 +1,4 @@
+import 'package:care_flow/core/routing/routes.dart';
 import 'package:care_flow/core/utils/app_extensions.dart';
 import 'package:care_flow/core/utils/colors.dart';
 import 'package:care_flow/core/utils/my_inums.dart';
@@ -42,85 +43,96 @@ class _DiagnosisScreenState extends State<DiagnosisScreen> {
           AppFunctions.showMySnackBar(context, state.error);
         }
       },
-      child: Scaffold(
-          appBar: AppBar(
-            title: const Text('Send Diagnosis'),
-            centerTitle: true,
-            elevation: 5,
-          ),
-          body: SingleChildScrollView(
-            padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 10.h),
-            child: Form(
-              key: formKey,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  InfoTextField(
-                    title: 'Tips',
-                    maxLines: 5,
-                    validator: (value) {
-                      if (value!.isEmpty) {
-                        return 'please write your tips';
-                      } else {
-                        return null;
-                      }
-                    },
-                    onSave: (value) {
-                      tips = value!;
-                    },
-                  ),
-                  SizedBox(
-                    height: 10.h,
-                  ),
-                  InfoTextField(
-                    title: 'Medicine',
-                    maxLines: 5,
-                    validator: (value) {
-                      if (value!.isEmpty) {
-                        return 'please write the medicine';
-                      } else {
-                        return null;
-                      }
-                    },
-                    onSave: (value) {
-                      medicine = value!;
-                    },
-                  ),
-                  SizedBox(
-                    height: 20.h,
-                  ),
-                  BlocBuilder<SendDiagnosisCubit, SendDiagnosisState>(
-                    builder: (context, state) {
-                      if (state is SendDiagnosisLoad) {
-                        return const Center(
-                          child: CircularProgressIndicator(),
-                        );
-                      } else {
-                        return CommonButtons(
-                          textLabel: 'Send',
-                          textColor: Colors.white,
-                          backgroundColor: MyColors.primary,
-                          onTap: () {
-                            if (formKey.currentState!.validate()) {
-                              formKey.currentState!.save();
-                              SendDiagnosisCubit.get(context).sendDiagnosis(
-                                tips: tips,
-                                medicine: medicine,
-                                coronaCheck: widget.coronaResult,
-                                doctorName: LayoutCubit.get(context).currentDoctor!.name,
-                                currentRequest: widget.request,
-
-                              );
-                            }
-                          },
-                        );
-                      }
-                    },
-                  )
-                ],
-              ),
+      child: GestureDetector(
+        onTap: () => FocusScope.of(context).unfocus(),
+        child: Scaffold(
+          resizeToAvoidBottomInset: true,
+            appBar: AppBar(
+              title: const Text('Send Diagnosis'),
+              centerTitle: true,
+              elevation: 5,
             ),
-          )),
+            body: SingleChildScrollView(
+              reverse: true,
+              padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 10.h),
+              child: Form(
+                key: formKey,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    InfoTextField(
+                      title: 'Tips',
+                      maxLines: 5,
+                      validator: (value) {
+                        if (value!.isEmpty) {
+                          return 'please write your tips';
+                        } else {
+                          return null;
+                        }
+                      },
+                      onSave: (value) {
+                        tips = value!;
+                      },
+                    ),
+                    SizedBox(
+                      height: 15.h,
+                    ),
+                    InfoTextField(
+                      title: 'Medicine',
+                      maxLines: 5,
+                      validator: (value) {
+                        if (value!.isEmpty) {
+                          return 'please write the medicine';
+                        } else {
+                          return null;
+                        }
+                      },
+                      onSave: (value) {
+                        medicine = value!;
+                      },
+                    ),
+                    TextButton(onPressed: () =>context.push(Routes.medicineRecommenderRoute) , child: Row(
+                      children:  [
+                        const Icon(Icons.help,color: Colors.grey,),
+                        SizedBox(width: 2.w,),
+                         Text('Medicine recommendation to help you',style: TextStyle(color: MyColors.primary,fontSize: 14.sp,fontWeight: FontWeight.w500),),
+                      ],
+                    ) ),
+                    SizedBox(
+                      height: 20.h,
+                    ),
+                    BlocBuilder<SendDiagnosisCubit, SendDiagnosisState>(
+                      builder: (context, state) {
+                        if (state is SendDiagnosisLoad) {
+                          return const Center(
+                            child: CircularProgressIndicator(),
+                          );
+                        } else {
+                          return CommonButtons(
+                            textLabel: 'Send',
+                            textColor: Colors.white,
+                            backgroundColor: MyColors.primary,
+                            onTap: () {
+                              if (formKey.currentState!.validate()) {
+                                formKey.currentState!.save();
+                                SendDiagnosisCubit.get(context).sendDiagnosis(
+                                  tips: tips,
+                                  medicine: medicine,
+                                  coronaCheck: widget.coronaResult,
+                                  doctorName: LayoutCubit.get(context).currentDoctor!.name,
+                                  currentRequest: widget.request,
+                                );
+                              }
+                            },
+                          );
+                        }
+                      },
+                    )
+                  ],
+                ),
+              ),
+            )),
+      ),
     );
   }
 }

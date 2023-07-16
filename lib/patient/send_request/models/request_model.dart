@@ -8,6 +8,8 @@ class RequestModel {
   final String prevDiseases;
   final String xrayImage;
   final String? requestId;
+  final String doctorName;
+  final String doctorSpecialize;
    bool read;
    bool finished;
 
@@ -20,6 +22,8 @@ class RequestModel {
     required this.xrayImage,
     required this.notes,
     required this.patientId,
+    required this.doctorName,
+    required this.doctorSpecialize,
     required this.read,
     required this.finished,
     this.requestId,
@@ -35,8 +39,10 @@ class RequestModel {
       xrayImage: json['xray'],
       notes: json['notes'],
       patientId: json['patientId'],
-      read: json['read'],
       requestId: json['requestId'],
+      doctorName: json['doctorName'],
+      doctorSpecialize: json['doctorSpecialize'],
+      read: json['read'],
       finished: json['finished'],
     );
   }
@@ -51,6 +57,8 @@ class RequestModel {
       'xray': xrayImage,
       'notes':notes,
       'patientId':patientId,
+      'doctorSpecialize':doctorSpecialize,
+      'doctorName':doctorName,
       'read':read,
       'requestId':id,
       'finished':finished,

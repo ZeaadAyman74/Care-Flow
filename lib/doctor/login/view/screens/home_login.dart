@@ -12,9 +12,13 @@ class HomeLoginScreen extends StatefulWidget {
 class _HomeLoginScreenState extends State<HomeLoginScreen> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: BlocBuilder<HomeLoginCubit, HomeLoginState>(
-        builder: (context, state) => HomeLoginCubit.get(context).view,
+    return GestureDetector(
+      onTap: () => FocusScope.of(context).unfocus(),
+      child: Scaffold(
+        resizeToAvoidBottomInset: true,
+        body: BlocBuilder<HomeLoginCubit, HomeLoginState>(
+          builder: (context, state) => HomeLoginCubit.get(context).view,
+        ),
       ),
     );
   }

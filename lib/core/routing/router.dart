@@ -1,8 +1,11 @@
 import 'package:care_flow/choose_role/business_logic/choose_role_cubit.dart';
 import 'package:care_flow/choose_role/choose_role.dart';
+import 'package:care_flow/core/notifications/first_screen.dart';
 import 'package:care_flow/core/routing/routes.dart';
 import 'package:care_flow/doctor/diagnoses/business_logic/diagnoses_cubit.dart';
+import 'package:care_flow/doctor/layout/business_logic/new_layout_cubit/new_layout_cubit.dart';
 import 'package:care_flow/doctor/layout/view/screens/layout_screen.dart';
+import 'package:care_flow/doctor/layout/view/screens/new_layout.dart';
 import 'package:care_flow/doctor/login/business_logic/home_login_cubit/home_login_cubit.dart';
 import 'package:care_flow/doctor/login/view/screens/home_login.dart';
 import 'package:care_flow/doctor/lung_diseases/view/lung_screen.dart';
@@ -17,12 +20,19 @@ import 'package:care_flow/doctor/receive_request/view/screens/request_details_sc
 import 'package:care_flow/doctor/receive_request/view/widgets/complete_photo.dart';
 import 'package:care_flow/doctor/send_diagnosis/business_logic/send_diagnosis_cubit.dart';
 import 'package:care_flow/doctor/send_diagnosis/view/diagnosis_screen.dart';
+import 'package:care_flow/laboratory/covid_check.dart';
+import 'package:care_flow/laboratory/lab_lung_diseases.dart';
+import 'package:care_flow/laboratory/lab_specializations.dart';
+import 'package:care_flow/medicine_recommender/medicine_recommender_screen.dart';
 import 'package:care_flow/patient/choose_doctor/business_logic/choose_doctor_cubit.dart';
 import 'package:care_flow/patient/choose_doctor/view/screens/choose_doctor_screen.dart';
+import 'package:care_flow/patient/home/view/patient_home_screen.dart';
 import 'package:care_flow/patient/layout/business_logic/patient_layout_cubit.dart';
 import 'package:care_flow/patient/layout/view/patient_layout_screen.dart';
 import 'package:care_flow/patient/login/business_logic/patient_home_login_cubit/patient_home_login_cubit.dart';
 import 'package:care_flow/patient/login/view/screens/home_login_screen.dart';
+import 'package:care_flow/patient/requests/business_logic/requests_cubit.dart';
+import 'package:care_flow/patient/requests/view/screens/sent_request_details.dart';
 import 'package:care_flow/patient/responses/business_logic/responses_cubit.dart';
 import 'package:care_flow/patient/responses/view/screens/response_details_screen.dart';
 import 'package:care_flow/patient/send_request/business_logic/send_request_cubit.dart';
@@ -46,6 +56,8 @@ class AppRouter {
         return _getPageRoute(BlocProvider<HomeLoginCubit>(
             create: (context) => HomeLoginCubit(),
             child: const HomeLoginScreen()));
+      case Routes.newLayout:
+        return _getPageRoute(BlocProvider(create: (context) => NewLayoutCubit(),child: const NewLayout(),));
       case Routes.layoutRoute:
         return _getPageRoute(MultiBlocProvider(providers: [
           // BlocProvider(
@@ -72,35 +84,6 @@ class AppRouter {
           create: (context) => PrivateDiagnosisCubit(),
           child: SaveResultScreen(result: arg['result'], image: arg['image']),
         ));
-      case Routes.patientLoginRoute:
-        return _getPageRoute(BlocProvider(
-          create: (context) => PatientHomeLoginCubit(),
-          child: const PatientHomeLogin(),
-        ));
-      case Routes.patientLayoutRoute:
-        return _getPageRoute(MultiBlocProvider(providers: [
-          BlocProvider(
-            create: (context) => PatientLayoutCubit(),
-          ),
-          BlocProvider(
-            create: (context) => ResponsesCubit(),
-          ),
-        ], child: const PatientLayoutScreen()));
-      case Routes.chooseDoctorRoute:
-        var arg = settings.arguments as Map;
-        return _getPageRoute(BlocProvider(
-          create: (context) => ChooseDoctorCubit(),
-          child: ChooseDoctorScreen(specialize: arg['specialize']),
-        ));
-      case Routes.sendRequestRoute:
-        var arg = settings.arguments as Map;
-        return _getPageRoute(BlocProvider(
-          create: (context) => SendRequestCubit(),
-          child: SendRequestScreen(
-            doctorName: arg['doctorName'],
-            doctorId: arg['doctorId'],
-          ),
-        ));
       case Routes.requestDetailsRoute:
         var arg = settings.arguments as Map;
         return _getPageRoute(BlocProvider(
@@ -119,11 +102,63 @@ class AppRouter {
           child: DiagnosisScreen(
               request: arg['request'], coronaResult: arg['coronaResult']),
         ));
+
+        ////////////////////////////////////////////////////////////////////////////////////////////////////////////
+      case Routes.patientLoginRoute:
+        return _getPageRoute(BlocProvider(
+          create: (context) => PatientHomeLoginCubit(),
+          child: const PatientHomeLogin(),
+        ));
+      case Routes.patientLayoutRoute:
+        return _getPageRoute(MultiBlocProvider(providers: [
+          BlocProvider(
+            create: (context) => PatientLayoutCubit(),
+          ),
+          BlocProvider(
+            create: (context) => ResponsesCubit(),
+          ),
+          BlocProvider(
+            create: (context) => RequestsCubit(),
+          ),
+        ], child: const PatientLayoutScreen()));
+      case Routes.chooseDoctorRoute:
+        var arg = settings.arguments as Map;
+        return _getPageRoute(BlocProvider(
+          create: (context) => ChooseDoctorCubit(),
+          child: ChooseDoctorScreen(specialize: arg['specialize']),
+        ));
+      case Routes.sendRequestRoute:
+        var arg = settings.arguments as Map;
+        return _getPageRoute(BlocProvider(
+          create: (context) => SendRequestCubit(),
+          child: SendRequestScreen(
+            doctorName: arg['doctorName'],
+            doctorId: arg['doctorId'],
+            doctorSpecialize: arg['doctorSpecialize'],
+          ),
+        ));
       case Routes.diagnosisDetailsRoute:
         var arg = settings.arguments as Map;
         return _getPageRoute(ResponseDetailsScreen(
           response: arg['response'],
         ));
+      case Routes.sentRequestDetailsRoute:
+        var arg=settings.arguments as Map;
+        return _getPageRoute(SentRequestDetails(request: arg['request']));
+      case Routes.diagnosisRoute:
+        return _getPageRoute(const PatientHomeScreen());
+      case Routes.medicineRecommenderRoute:
+        return _getPageRoute(const MedicineRecommenderScreen());
+      case Routes.labSpecializationsRoute:
+        return _getPageRoute(const LabSpecializationsScreen());
+      case Routes.labLungDiseases:
+        return _getPageRoute(const LabLungDiseases());
+      case Routes.labCheckRoute:
+        return _getPageRoute(const CovidCheck());
+
+      case Routes.first:
+        return _getPageRoute(const FirstScreen());
+
     }
     return null;
   }

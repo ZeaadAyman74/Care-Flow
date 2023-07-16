@@ -58,7 +58,7 @@ class _RequestDetailsScreenState extends State<RequestDetailsScreen> {
           }
         },
         child: ListView(
-          padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 10.h),
+          padding: EdgeInsets.only(left: 10.w,right: 10.w,top: 10.h,),
           children: [
             InfoPart(
                 name: widget.request.name,
@@ -127,36 +127,36 @@ class _RequestDetailsScreenState extends State<RequestDetailsScreen> {
                 ),
               ),
             ),
-            coronaResult!=null?
-            Column(
-              children: [
-                SizedBox(height: 10.h,),
-                Row(
-                  children: [
-                    const FaIcon(
-                      FontAwesomeIcons.virusCovid, color: MyColors.primary,),
-                    SizedBox(width: 5.w,),
-                    AutoSizeText.rich(
-                      TextSpan(
-                        children: [
-                          TextSpan(
-                            text: 'COVID-19 Check:',
-                            style: TextStyle(fontSize: 18.sp, color: MyColors
-                                .primary),
-                          ),
-                          TextSpan(
-                            text: coronaResult,
-                            style: TextStyle(fontSize: 18.sp, color:coronaResult=='positive'? Colors.red:
-                                Colors.green),
-                          ),
-                        ]
-                    ),
-                    ),
-                  ],
-                )
-              ],
-            ):
-                const SizedBox(),
+            // coronaResult!=null?
+            // Column(
+            //   children: [
+            //     SizedBox(height: 10.h,),
+            //     Row(
+            //       children: [
+            //         const FaIcon(
+            //           FontAwesomeIcons.virusCovid, color: MyColors.primary,),
+            //         SizedBox(width: 5.w,),
+            //         AutoSizeText.rich(
+            //           TextSpan(
+            //             children: [
+            //               TextSpan(
+            //                 text: 'COVID-19 Check:',
+            //                 style: TextStyle(fontSize: 18.sp, color: MyColors
+            //                     .primary),
+            //               ),
+            //               TextSpan(
+            //                 text: coronaResult,
+            //                 style: TextStyle(fontSize: 18.sp, color:coronaResult=='positive'? Colors.red:
+            //                     Colors.green),
+            //               ),
+            //             ]
+            //         ),
+            //         ),
+            //       ],
+            //     )
+            //   ],
+            // ):
+            //     const SizedBox(),
             SizedBox(height: 30.h,),
             CommonButtons(textLabel: 'Check',
               textColor: MyColors.white,
@@ -167,13 +167,14 @@ class _RequestDetailsScreenState extends State<RequestDetailsScreen> {
                 await RequestDetailsCubit.get(context).imageClassification(
                     imageFile.path);
               },),
-            CommonButtons(textLabel: 'Continue',
-              textColor: MyColors.white,
-              backgroundColor: MyColors.primary,
-              onTap: () async {
-                context.push(Routes.sendDiagnosisRoute,
-                    arg: {'request': widget.request, 'coronaResult': null});
-              },),
+            // SizedBox(height: 10.h,),
+            // CommonButtons(textLabel: 'Continue',
+            //   textColor: MyColors.white,
+            //   backgroundColor: MyColors.primary,
+            //   onTap: () async {
+            //     context.push(Routes.sendDiagnosisRoute,
+            //         arg: {'request': widget.request, 'coronaResult': null});
+            //   },),
           ],
         ),
       ),

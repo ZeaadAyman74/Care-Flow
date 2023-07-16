@@ -1,4 +1,5 @@
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:care_flow/core/utils/colors.dart';
 import 'package:dotted_line/dotted_line.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -17,7 +18,7 @@ final String email;
             AutoSizeText.rich(
               TextSpan(
                   children: [
-                    TextSpan(text: 'Name: ',style: TextStyle(fontSize: 22.sp,fontWeight: FontWeight.w600)),
+                    TextSpan(text: 'Name: ',style: TextStyle(fontSize: 22.sp,fontWeight: FontWeight.w600,color: MyColors.primary)),
                     TextSpan(text:name,style: TextStyle(fontSize: 18.sp,fontWeight: FontWeight.w500)),
                   ]
               ),
@@ -29,7 +30,7 @@ final String email;
             AutoSizeText.rich(
               TextSpan(
                   children: [
-                    TextSpan(text: 'Email: ',style: TextStyle(fontSize: 22.sp,fontWeight: FontWeight.w600)),
+                    TextSpan(text: 'Email: ',style: TextStyle(fontSize: 22.sp,fontWeight: FontWeight.w600,color: MyColors.primary)),
                     TextSpan(text:email,style: TextStyle(fontSize: 18.sp,fontWeight: FontWeight.w500)),
                   ]
               ),
@@ -41,7 +42,7 @@ final String email;
             AutoSizeText.rich(
               TextSpan(
                   children: [
-                    TextSpan(text: 'Age: ',style: TextStyle(fontSize: 22.sp,fontWeight: FontWeight.w600)),
+                    TextSpan(text: 'Age: ',style: TextStyle(fontSize: 22.sp,fontWeight: FontWeight.w600,color: MyColors.primary)),
                     TextSpan(text:age.toString(),style: TextStyle(fontSize: 18.sp,fontWeight: FontWeight.w500)),
                   ]
               ),
@@ -53,7 +54,7 @@ final String email;
             AutoSizeText.rich(
               TextSpan(
                   children: [
-                    TextSpan(text: 'Phone: ',style: TextStyle(fontSize: 22.sp,fontWeight: FontWeight.w600)),
+                    TextSpan(text: 'Phone: ',style: TextStyle(fontSize: 22.sp,fontWeight: FontWeight.w600,color: MyColors.primary)),
                     TextSpan(text:phone,style: TextStyle(fontSize: 18.sp,fontWeight: FontWeight.w500)),
                   ]
               ),
@@ -61,7 +62,7 @@ final String email;
               minFontSize: 18.sp,
               textAlign: TextAlign.start,
             ),
-        Padding(padding: EdgeInsets.symmetric(horizontal: 10.w,vertical: 10.h),child: const DottedLine()),
+        Padding(padding: EdgeInsets.symmetric(horizontal: 10.w,vertical: 20.h),child: const DottedLine()),
       ],
     );
   }

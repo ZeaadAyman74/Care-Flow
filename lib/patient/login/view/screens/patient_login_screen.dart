@@ -72,6 +72,7 @@ class _PatientLoginScreenState extends State<PatientLoginScreen> with TickerProv
       child: SafeArea(
         child: Center(
           child: SingleChildScrollView(
+            reverse: true,
             child: Padding(
               padding: EdgeInsetsDirectional.fromSTEB(20.w, 0, 20.w, 20.h),
               child: Form(
@@ -80,7 +81,7 @@ class _PatientLoginScreenState extends State<PatientLoginScreen> with TickerProv
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    Image.asset(AppImages.login,),
+                    Image.asset(AppImages.patientLogin,),
                     SizedBox(height: 30.h,),
                     Text(
                       "LOGIN",

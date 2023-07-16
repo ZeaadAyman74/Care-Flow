@@ -13,5 +13,10 @@ abstract class AppImages{
   static const String skin='assets/images/skin.jpg';
   static const String bone='assets/images/bone.jpg';
   static const String heart='assets/images/heart.jpg';
-
+  static const String diagnosis='assets/images/diagnosis.jpg';
+  static const String drug='assets/images/drug.jpg';
+  static const String consultation='assets/images/consultation.jpg';
+  static const String chat='assets/images/chat.jpg';
+  static const String  patientLogin='assets/images/patient_login.png';
+  static const String lab='assets/images/lab.jpg';
 }

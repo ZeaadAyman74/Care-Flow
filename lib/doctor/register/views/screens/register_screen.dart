@@ -51,6 +51,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
       child: SafeArea(
         child: Center(
           child: SingleChildScrollView(
+            reverse: true,
+            keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
             child: Padding(
               padding: const EdgeInsets.fromLTRB(20, 10, 20, 70),
               child: Form(
@@ -243,6 +245,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       style: TextStyle(
                           fontSize: 18.sp, fontWeight: FontWeight.w500),
                       decoration: InputDecoration(
+                        hintText: 'about you',
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.all(Radius.circular(10.r)),
                           borderSide: const BorderSide(color: MyColors.grey),

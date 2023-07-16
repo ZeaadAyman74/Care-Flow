@@ -27,7 +27,7 @@ class InfoTextField extends StatelessWidget {
       children: [
         Text(
           title,
-          style: TextStyle(fontSize: 16.sp, color: Colors.black),
+          style: TextStyle(fontSize: 18.sp, color: Colors.black),
         ),
         SizedBox(
           height: 5.h,

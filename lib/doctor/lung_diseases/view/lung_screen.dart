@@ -36,7 +36,7 @@ class _LungScreenState extends State<LungScreen> {
           childAspectRatio: 1.05,
         ),
         children: List.generate(
-            5,
+            1,
             (index) => GestureDetector(
                 onTap: () => context.push(Routes.predictionRoute),
                 child: DiseaseItem(

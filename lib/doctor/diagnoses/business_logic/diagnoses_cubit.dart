@@ -25,8 +25,8 @@ class DiagnosesCubit extends Cubit<DiagnosesState> {
           .get();
       currentDiagnoses.docs.forEach((diagnosis) {
         diagnoses.add(ResponseModel.fromJson(diagnosis.data()));
-        emit(GetMyDiagnosesSuccess());
       });
+      emit(GetMyDiagnosesSuccess());
     } catch (error) {
       if (error is SocketException) {
         emit(GetMyDiagnosesError(AppStrings.checkInternet));

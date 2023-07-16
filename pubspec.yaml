@@ -34,6 +34,7 @@ dependencies:
   path_provider: ^2.0.15
   http: ^0.13.6
   path: ^1.8.2
+  flutter_inappwebview: ^5.7.2+3
 
 dev_dependencies:
   flutter_test:
@@ -60,6 +61,12 @@ flutter:
      - assets/images/heart.jpg
      - assets/images/skin.jpg
      - assets/images/Urologist.jpg
+     - assets/images/consultation.jpg
+     - assets/images/drug.jpg
+     - assets/images/chat.jpg
+     - assets/images/diagnosis.jpg
+     - assets/images/patient_login.png
+     - assets/images/lab.jpg
 
 
 

@@ -15,21 +15,25 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   await CacheHelper.init();
-  String initialRoute;
+  final String initialRoute;
   AppStrings.uId = CacheHelper.getData(key: 'uId');
-  initialRoute=Routes.loginRoute;
-  // if (AppStrings.uId  != null) {
-  //     initialRoute=Routes.homeRoute;
-  // } else {
-  //   initialRoute = Routes.loginRoute;
-  // }
-  runApp( const MyApp());
+  AppStrings.role=CacheHelper.getData(key: 'role');
+  if (AppStrings.uId  == null) {
+      initialRoute=Routes.chooseRole;
+  } else {
+    if(AppStrings.role=='p'){
+      initialRoute = Routes.patientLayoutRoute;
+    }else {
+      initialRoute = Routes.newLayout;
+    }
+  }
+  runApp(  MyApp(initialRoute: initialRoute,));
   Bloc.observer = MyBlocObserver();
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key,});
-// final String initialRoute;
+  const MyApp({super.key,required this.initialRoute});
+final String initialRoute;
   @override
   Widget build(BuildContext context) {
     return ScreenUtilInit(
@@ -47,7 +51,7 @@ class MyApp extends StatelessWidget {
           title: 'Care Flow',
           theme: MyTheme.lightTheme(),
           onGenerateRoute: AppRouter().generateRoute,
-          initialRoute:Routes.chooseRole,
+          initialRoute:initialRoute,
         ),
       ),
     );

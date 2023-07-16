@@ -36,7 +36,7 @@ class _ChooseDoctorScreenState extends State<ChooseDoctorScreen> {
       child: Scaffold(
         appBar: AppBar(
           elevation: 5,
-          title: const Text('Choose Doctor'),
+          title:  Text(widget.specialize),
           centerTitle: true,
         ),
         body: BlocBuilder<ChooseDoctorCubit, ChooseDoctorState>(

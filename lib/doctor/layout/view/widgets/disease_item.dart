@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:care_flow/patient/home/models/specialization_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -30,7 +31,7 @@ class _DiseaseItemState extends State<DiseaseItem> {
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
               Image.asset(widget.specialization.image,height:constraints.maxHeight*.75,width: constraints.maxWidth, fit: BoxFit.fill,),
-               Text(widget.specialization.title),
+               Expanded(child: AutoSizeText(widget.specialization.title,textAlign: TextAlign.center,style: TextStyle(fontSize: 18.sp),)),
             ],
           ),
         ),

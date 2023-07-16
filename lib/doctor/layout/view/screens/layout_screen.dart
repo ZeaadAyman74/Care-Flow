@@ -1,5 +1,10 @@
+import 'package:care_flow/core/cache_helper.dart';
+import 'package:care_flow/core/routing/routes.dart';
+import 'package:care_flow/core/utils/app_extensions.dart';
 import 'package:care_flow/core/utils/colors.dart';
+import 'package:care_flow/core/utils/strings.dart';
 import 'package:care_flow/doctor/layout/business_logic/layout_cubit.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -30,7 +35,7 @@ class _LayoutScreenState extends State<LayoutScreen> {
       backgroundColor: Colors.white,
       appBar: AppBar(
         elevation: 5,
-        title: const Text('Care Flow'),
+        title: const Text('MEDIX-E'),
         centerTitle: true,
       ),
       body: Center(

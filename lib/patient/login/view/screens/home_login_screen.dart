@@ -7,9 +7,13 @@ class PatientHomeLogin extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: BlocBuilder<PatientHomeLoginCubit, PatientHomeLoginState>(
-        builder: (context, state) => PatientHomeLoginCubit.get(context).view,
+    return GestureDetector(
+      onTap: () => FocusScope.of(context).unfocus(),
+      child: Scaffold(
+        resizeToAvoidBottomInset: true,
+        body: BlocBuilder<PatientHomeLoginCubit, PatientHomeLoginState>(
+          builder: (context, state) => PatientHomeLoginCubit.get(context).view,
+        ),
       ),
     );
   }

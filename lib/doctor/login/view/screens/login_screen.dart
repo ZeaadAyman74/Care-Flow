@@ -41,7 +41,7 @@ class _LoginScreenState extends State<LoginScreen>with TickerProviderStateMixin 
   }
 
   void _goToHome(){
-    context.pushAndRemove(Routes.layoutRoute);
+    context.pushAndRemove(Routes.newLayout);
   }
 
   @override
@@ -69,6 +69,8 @@ class _LoginScreenState extends State<LoginScreen>with TickerProviderStateMixin 
       child: SafeArea(
         child: Center(
           child: SingleChildScrollView(
+            keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
+          reverse: true,
           child: Padding(
             padding: EdgeInsetsDirectional.fromSTEB(20.w, 0, 20.w, 20.h),
             child: Form(

@@ -108,7 +108,7 @@ class ChooseRoleScreen extends StatelessWidget {
   }
 }
 
-class CharacterItem extends StatelessWidget {
+class CharacterItem extends StatefulWidget {
   const CharacterItem(
       {Key? key,
       required this.image,
@@ -123,9 +123,20 @@ class CharacterItem extends StatelessWidget {
   final bool isChecked;
 
   @override
+  State<CharacterItem> createState() => _CharacterItemState();
+}
+
+class _CharacterItemState extends State<CharacterItem> {
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    precacheImage(const AssetImage(AppImages.patient), context);
+    precacheImage(const AssetImage(AppImages.doctor), context);
+  }
+  @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: onTap,
+      onTap: widget.onTap,
       child: Material(
         elevation: 3,
         shadowColor: Colors.grey,
@@ -139,7 +150,7 @@ class CharacterItem extends StatelessWidget {
               Container(
                 decoration: BoxDecoration(
                     border: Border.all(
-                      color: isChecked ? MyColors.primary : Colors.grey[200]!,
+                      color: widget.isChecked ? MyColors.primary : Colors.grey[200]!,
                       width: 2,
                     ),
                     borderRadius: BorderRadius.all(Radius.circular(10.r))),
@@ -150,7 +161,7 @@ class CharacterItem extends StatelessWidget {
                       children: [
                         ClipOval(
                             child: Image.asset(
-                          image,
+                          widget.image,
                           height: 100.w,
                           width: 100.w,
                         )),
@@ -158,7 +169,7 @@ class CharacterItem extends StatelessWidget {
                           height: 10.h,
                         ),
                         Text(
-                          role,
+                          widget.role,
                           style: TextStyle(
                               fontSize: 18.sp,
                               fontWeight: FontWeight.w600,
@@ -175,8 +186,8 @@ class CharacterItem extends StatelessWidget {
                 width: 25.w,
                 decoration: BoxDecoration(
                     shape: BoxShape.circle,
-                    color: isChecked ? Colors.green : Colors.grey[400]),
-                child: isChecked
+                    color: widget.isChecked ? Colors.green : Colors.grey[400]),
+                child: widget.isChecked
                     ? const Icon(
                         Icons.check,
                         color: Colors.white,

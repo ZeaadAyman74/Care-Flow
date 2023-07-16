@@ -18,11 +18,12 @@ class SendRequestCubit extends Cubit<SendRequestState> {
   static SendRequestCubit get(BuildContext context) =>
       BlocProvider.of<SendRequestCubit>(context);
 
-  PatientModel? patient;
+FirebaseFirestore firebase=FirebaseFirestore.instance;
 
+  PatientModel? patient;
   Future<void> getCurrentUser() async {
     try {
-      final user = await FirebaseFirestore.instance
+      final user = await firebase
           .collection('patients')
           .doc(FirebaseAuth.instance.currentUser!.uid)
           .get();
@@ -39,6 +40,8 @@ class SendRequestCubit extends Cubit<SendRequestState> {
     required String doctorId,
     required String notes,
     required String imageUrl,
+    required String doctorName,
+    required String doctorSpecialize,
   }) async {
     try {
       RequestModel request = RequestModel(
@@ -50,15 +53,19 @@ class SendRequestCubit extends Cubit<SendRequestState> {
         xrayImage: imageUrl,
         notes: notes,
         patientId: AppStrings.uId!,
+        doctorSpecialize:doctorSpecialize,
+        doctorName: doctorName,
         read: false,
         finished: false,
       );
-      var doc= FirebaseFirestore.instance
+      var doc= firebase
           .collection('doctors')
           .doc(doctorId)
           .collection('requests')
           .doc();
-    doc.set(request.toJson(doc.id));
+   await doc.set(request.toJson(doc.id));
+   var patientDoc= firebase.collection('patients').doc(AppStrings.uId).collection('requests').doc();
+   await patientDoc.set(request.toJson(patientDoc.id));
     } catch (error) {
       emit(SendRequestError(AppStrings.errorMessage));
     }
@@ -67,6 +74,8 @@ class SendRequestCubit extends Cubit<SendRequestState> {
   Future<void> uploadImage({
     required String prevDiseases,
     required String doctorId,
+    required String doctorName,
+    required String doctorSpecialize,
     required String notes,
   }) async {
     try {
@@ -77,7 +86,7 @@ class SendRequestCubit extends Cubit<SendRequestState> {
           .putFile(imageFile!);
       String imageUrl = await value.ref.getDownloadURL();
       await getCurrentUser();
-      sendRequest(
+     await sendRequest(
         name: patient!.name,
         age: patient!.age,
         prevDiseases: prevDiseases,
@@ -86,6 +95,8 @@ class SendRequestCubit extends Cubit<SendRequestState> {
         doctorId: doctorId,
         notes: notes,
         imageUrl: imageUrl,
+       doctorName:doctorName,
+       doctorSpecialize: doctorSpecialize
       );
       emit(SendRequestSuccess());
     } catch (error) {

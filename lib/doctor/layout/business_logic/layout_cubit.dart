@@ -1,13 +1,9 @@
-import 'package:care_flow/core/cache_helper.dart';
-import 'package:care_flow/core/routing/routes.dart';
-import 'package:care_flow/core/utils/app_extensions.dart';
 import 'package:care_flow/core/utils/strings.dart';
 import 'package:care_flow/doctor/diagnoses/view/diagnoses_screen.dart';
 import 'package:care_flow/doctor/home/view/screens/home.dart';
 import 'package:care_flow/doctor/receive_request/view/screens/requests_screen.dart';
 import 'package:care_flow/doctor/register/models/register_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

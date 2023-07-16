@@ -5,6 +5,11 @@ class MyColors {
   static const black=Color(0xff000000);
   static const Color grey =  Color(0xffD9D9D9);
   static const Color backGroundGrey=Color(0xffEFEFEF);
+  static const Color hintColor = Color(0xFF707070);
+  static const Color notWhite = Color(0xFFEDF0F2);
+  static const Color nearlyWhite = Color(0xFFFEFEFE);
+  static const Color nearlyBlack = Color(0xFF213333);
+
 
   static  MaterialColor primarySwatch= MaterialColor(const Color(0xff0997b1).value, const <int,Color>{
     50:MyColors.primary ,

@@ -1,5 +1,10 @@
+import 'package:care_flow/core/cache_helper.dart';
+import 'package:care_flow/core/routing/routes.dart';
+import 'package:care_flow/core/utils/app_extensions.dart';
 import 'package:care_flow/core/utils/colors.dart';
+import 'package:care_flow/core/utils/strings.dart';
 import 'package:care_flow/patient/layout/business_logic/patient_layout_cubit.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -20,8 +25,22 @@ class _PatientLayoutScreenState extends State<PatientLayoutScreen> {
       backgroundColor: Colors.white,
       appBar: AppBar(
         elevation: 5,
-        title: const Text('Care Flow'),
+        title: const Text('MEDIX-E'),
         centerTitle: true,
+        leading: const Icon(Icons.menu,color: Colors.white,),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.logout_rounded,color: Colors.white,),
+            onPressed: ()async{
+              await FirebaseAuth.instance.signOut().then((value) async {
+                AppStrings.uId=null;
+                context.pushAndRemove(Routes.chooseRole);
+                await CacheHelper.removeValue(key: 'uId');
+                await CacheHelper.removeValue(key: 'role');
+              });
+            },
+          ),
+        ],
       ),
       body: Center(
         child: BlocBuilder<PatientLayoutCubit, PatientLayoutState>(
