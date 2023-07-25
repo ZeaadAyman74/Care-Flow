@@ -1,4 +1,5 @@
 import 'package:care_flow/core/routing/routes.dart';
+import 'package:care_flow/core/di_container.dart';
 import 'package:care_flow/core/utils/app_extensions.dart';
 import 'package:care_flow/core/utils/images.dart';
 import 'package:care_flow/doctor/layout/view/widgets/disease_item.dart';
@@ -17,14 +18,14 @@ class _LabSpecializationsScreenState extends State<LabSpecializationsScreen> {
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    precacheImage(const AssetImage(AppImages.lung), context);
-    precacheImage(const AssetImage(AppImages.heart), context);
-    precacheImage(const AssetImage(AppImages.bone), context);
-    precacheImage(const AssetImage(AppImages.brain), context);
-    precacheImage(const AssetImage(AppImages.eye), context);
-    precacheImage(const AssetImage(AppImages.skin), context);
-    precacheImage(const AssetImage(AppImages.urologist), context);
-    precacheImage(const AssetImage(AppImages.ear), context);
+    precacheImage( AssetImage(sl<AppImages>().lung), context);
+    precacheImage( AssetImage(sl<AppImages>().heart), context);
+    precacheImage( AssetImage(sl<AppImages>().bone), context);
+    precacheImage( AssetImage(sl<AppImages>().brain), context);
+    precacheImage( AssetImage(sl<AppImages>().eye), context);
+    precacheImage( AssetImage(sl<AppImages>().skin), context);
+    precacheImage( AssetImage(sl<AppImages>().urologist), context);
+    precacheImage( AssetImage(sl<AppImages>().ear), context);
 
   }
 
@@ -60,44 +61,44 @@ class _LabSpecializationsScreenState extends State<LabSpecializationsScreen> {
         return GestureDetector(
             onTap: () => context.push(Routes.labLungDiseases,),
             child: DiseaseItem(
-              specialization: SpecializationModel(image: AppImages.lung, title: 'Lung diseases'),
+              specialization: SpecializationModel(image: sl<AppImages>().lung, title: 'Lung diseases'),
             ));
       }
     ),
     GestureDetector(
         onTap: () {},
         child: DiseaseItem(
-          specialization:     SpecializationModel(image: AppImages.heart, title: 'Cardiology'),
+          specialization:     SpecializationModel(image: sl<AppImages>().heart, title: 'Cardiology'),
         )),
     GestureDetector(
         onTap: () {},
         child: DiseaseItem(
-          specialization:    SpecializationModel(image: AppImages.bone, title: 'Orthopedic'),
+          specialization:    SpecializationModel(image: sl<AppImages>().bone, title: 'Orthopedic'),
         )),
     GestureDetector(
         onTap: () {},
         child: DiseaseItem(
-          specialization: SpecializationModel(image: AppImages.brain, title: 'Brain diseases'),
+          specialization: SpecializationModel(image: sl<AppImages>().brain, title: 'Brain diseases'),
         )),
     GestureDetector(
         onTap: (){},
         child: DiseaseItem(
-          specialization:     SpecializationModel(image: AppImages.eye, title: 'Ophthalmologist'),
+          specialization:     SpecializationModel(image: sl<AppImages>().eye, title: 'Ophthalmologist'),
         )),
     GestureDetector(
         onTap: (){},
         child: DiseaseItem(
-          specialization:  SpecializationModel(image: AppImages.skin, title: 'Dermatologist'),
+          specialization:  SpecializationModel(image: sl<AppImages>().skin, title: 'Dermatologist'),
         )),
     GestureDetector(
         onTap: (){},
         child: DiseaseItem(
-          specialization: SpecializationModel(image: AppImages.urologist, title: 'Urologist'),
+          specialization: SpecializationModel(image: sl<AppImages>().urologist, title: 'Urologist'),
         )),
     GestureDetector(
         onTap: (){},
         child: DiseaseItem(
-          specialization:SpecializationModel(image: AppImages.ear, title: 'Otolaryngologies'),
+          specialization:SpecializationModel(image: sl<AppImages>().ear, title: 'Otolaryngologies'),
         )),
 
 

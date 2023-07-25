@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:care_flow/core/di_container.dart';
 import 'package:care_flow/core/utils/app_extensions.dart';
 import 'package:care_flow/core/utils/colors.dart';
 import 'package:care_flow/core/utils/my_inums.dart';
@@ -46,9 +47,9 @@ class _SendRequestScreenState extends State<SendRequestScreen> {
         body: BlocListener<SendRequestCubit, SendRequestState>(
           listener: (context, state) {
             if (state is SendRequestError) {
-              AppFunctions.showMySnackBar(context, state.error);
+              sl<AppFunctions>().showMySnackBar(context, state.error);
             } else if (state is SendRequestSuccess) {
-              AppFunctions.showToast(
+              sl<AppFunctions>().showToast(
                   message: 'Request sent successfully',
                   state: ToastStates.success);
               context.pop();
@@ -177,12 +178,12 @@ class _SendRequestScreenState extends State<SendRequestScreen> {
                           return CommonButtons(
                             textLabel: 'Send',
                             textColor: Colors.white,
-                            backgroundColor: MyColors.primary,
+                            backgroundColor: sl<MyColors>().primary,
                             onTap: () async {
                               if (formKey.currentState!.validate()) {
                                 if (SendRequestCubit.get(context).pickedImage ==
                                     null) {
-                                  AppFunctions.showMySnackBar(
+                                  sl<AppFunctions>().showMySnackBar(
                                       context, 'Please provide an X-ray image');
                                 } else {
                                   formKey.currentState!.save();

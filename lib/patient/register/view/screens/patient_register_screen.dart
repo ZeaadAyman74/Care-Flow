@@ -1,3 +1,4 @@
+import 'package:care_flow/core/di_container.dart';
 import 'package:care_flow/core/utils/colors.dart';
 import 'package:care_flow/core/utils/my_inums.dart';
 import 'package:care_flow/core/utils/snack_bar.dart';
@@ -41,11 +42,11 @@ class _PatientRegisterScreenState extends State<PatientRegisterScreen> {
     return BlocListener<PatientRegisterCubit, PatientRegisterState>(
       listener: (context, state) {
         if (state is RegisterPatientSuccess) {
-          AppFunctions.showToast(
+          sl<AppFunctions>().showToast(
               message: 'Registered Success', state: ToastStates.success);
           goToLogin(context);
         } else if (state is RegisterPatientError) {
-          AppFunctions.showToast(
+          sl<AppFunctions>().showToast(
               message: state.error, state: ToastStates.error);
         }
       },
@@ -258,9 +259,9 @@ class _PatientRegisterScreenState extends State<PatientRegisterScreen> {
                           return LoginButton(
                             txt: "REGISTER",
                             radius: 5,
-                            background: MyColors.primary,
+                            background: sl<MyColors>().primary,
                             width: double.infinity,
-                            foreColor: MyColors.white,
+                            foreColor: sl<MyColors>().white,
                             function: () async {
                               if (formKey.currentState!.validate()) {
                                 formKey.currentState!.save();
@@ -297,9 +298,9 @@ class _PatientRegisterScreenState extends State<PatientRegisterScreen> {
                           onPressed: () {
                             PatientHomeLoginCubit.get(context).changeToLogin();
                           },
-                          child: const Text(
+                          child:  Text(
                             "LOGIN",
-                            style: TextStyle(color: MyColors.primary),
+                            style: TextStyle(color: sl<MyColors>().primary),
                           ),
                         )
                       ],

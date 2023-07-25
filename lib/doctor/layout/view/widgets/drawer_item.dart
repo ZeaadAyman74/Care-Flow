@@ -1,3 +1,4 @@
+import 'package:care_flow/core/di_container.dart';
 import 'package:care_flow/core/utils/app_extensions.dart';
 import 'package:care_flow/core/utils/colors.dart';
 import 'package:care_flow/doctor/layout/models/drawer_item_data.dart';
@@ -35,7 +36,7 @@ class DrawerItem extends StatelessWidget {
                     height: 46.0,
                     decoration: BoxDecoration(
                       color: screenIndex == drawerItemData.index
-                          ? Colors.blue
+                          ? sl<MyColors>().primary
                           : Colors.transparent,
                       borderRadius: const BorderRadius.only(
                         topLeft: Radius.circular(0),
@@ -54,13 +55,13 @@ class DrawerItem extends StatelessWidget {
                     height: 24,
                     child: Image.asset(drawerItemData.imageName,
                         color: screenIndex == drawerItemData.index
-                            ? Colors.blue
-                            : MyColors.nearlyBlack),
+                            ? sl<MyColors>().primary
+                            : sl<MyColors>().nearlyBlack),
                   )
                       : Icon(drawerItemData.icon?.icon,
                       color: screenIndex == drawerItemData.index
-                          ? Colors.blue
-                          : MyColors.nearlyBlack),
+                          ? sl<MyColors>().primary
+                          : sl<MyColors>().nearlyBlack),
                   const Padding(
                     padding: EdgeInsets.all(4.0),
                   ),
@@ -70,8 +71,8 @@ class DrawerItem extends StatelessWidget {
                       fontWeight: FontWeight.w500,
                       fontSize: 16,
                       color: screenIndex == drawerItemData.index
-                          ? Colors.blue
-                          : MyColors.nearlyBlack,
+                          ? sl<MyColors>().primary
+                          : sl<MyColors>().nearlyBlack,
                     ),
                     textAlign: TextAlign.left,
                   ),

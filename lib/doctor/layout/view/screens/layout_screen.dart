@@ -1,10 +1,6 @@
-import 'package:care_flow/core/cache_helper.dart';
-import 'package:care_flow/core/routing/routes.dart';
-import 'package:care_flow/core/utils/app_extensions.dart';
+import 'package:care_flow/core/di_container.dart';
 import 'package:care_flow/core/utils/colors.dart';
-import 'package:care_flow/core/utils/strings.dart';
 import 'package:care_flow/doctor/layout/business_logic/layout_cubit.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -60,12 +56,12 @@ class _LayoutScreenState extends State<LayoutScreen> {
           child: GNav(
             rippleColor: Colors.grey[300]!,
             gap: 5,
-            activeColor: MyColors.primary,
+            activeColor: sl<MyColors>().primary,
             iconSize: 22,
             padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 12.h),
             duration: const Duration(milliseconds: 400),
             tabBackgroundColor: Colors.grey[100]!,
-            color: MyColors.black.withOpacity(.5),
+            color: sl<MyColors>().black.withOpacity(.5),
             tabs: const [
               GButton(
                 icon: FontAwesomeIcons.house,

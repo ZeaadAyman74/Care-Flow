@@ -1,3 +1,4 @@
+import 'package:care_flow/core/di_container.dart';
 import 'package:care_flow/core/utils/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -19,9 +20,9 @@ class InfoTextField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    OutlineInputBorder border = const OutlineInputBorder(
-        borderRadius: BorderRadius.all(Radius.circular(10)),
-        borderSide: BorderSide(color: MyColors.primary));
+    OutlineInputBorder border =  OutlineInputBorder(
+        borderRadius: const BorderRadius.all(Radius.circular(10)),
+        borderSide: BorderSide(color: sl<MyColors>().primary));
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [

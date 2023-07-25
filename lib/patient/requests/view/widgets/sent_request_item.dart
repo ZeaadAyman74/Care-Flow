@@ -1,4 +1,5 @@
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:care_flow/core/di_container.dart';
 import 'package:care_flow/core/utils/images.dart';
 import 'package:care_flow/patient/send_request/models/request_model.dart';
 import 'package:flutter/material.dart';
@@ -24,7 +25,7 @@ final RequestModel request;
         children: [
           CircleAvatar(
             radius: 40.r,
-            backgroundImage:  const AssetImage(AppImages.doctor),
+            backgroundImage:   AssetImage(sl<AppImages>().doctor),
           ),
           SizedBox(
             width: 8.w,

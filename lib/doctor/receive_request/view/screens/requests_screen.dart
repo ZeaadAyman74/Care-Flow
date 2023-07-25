@@ -1,7 +1,13 @@
+import 'package:care_flow/core/di_container.dart';
+import 'package:care_flow/core/utils/colors.dart';
+import 'package:care_flow/core/utils/images.dart';
 import 'package:care_flow/core/utils/snack_bar.dart';
 import 'package:care_flow/doctor/receive_request/business_logic/receive_request_cubit/receive_requests_cubit.dart';
+import 'package:care_flow/doctor/receive_request/view/widgets/empty_widget.dart';
 import 'package:care_flow/doctor/receive_request/view/widgets/requests_list.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:lottie/lottie.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class RequestsScreen extends StatefulWidget {
@@ -29,7 +35,7 @@ class _RequestsScreenState extends State<RequestsScreen> {
     return BlocListener<ReceiveRequestsCubit, ReceiveRequestsState>(
       listener: (context, state) {
         if (state is ReceiveRequestError) {
-          AppFunctions.showMySnackBar(context, state.error);
+          sl<AppFunctions>().showMySnackBar(context, state.error);
         }
       },
       child: BlocBuilder<ReceiveRequestsCubit, ReceiveRequestsState>(
@@ -45,9 +51,7 @@ class _RequestsScreenState extends State<RequestsScreen> {
                     requests: ReceiveRequestsCubit.get(context).requests),
               );
             } else {
-              return const Center(
-                child: Text('No Requests Yet'),
-              );
+              return  const EmptyWidget(text: 'No Requests Yet');
             }
           } else {
             return const Center(

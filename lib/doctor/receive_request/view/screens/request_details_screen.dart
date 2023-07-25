@@ -1,5 +1,7 @@
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:care_flow/core/routing/routes.dart';
+import 'package:care_flow/core/di_container.dart';
 import 'package:care_flow/core/utils/app_extensions.dart';
 import 'package:care_flow/core/utils/colors.dart';
 import 'package:care_flow/core/utils/snack_bar.dart';
@@ -54,7 +56,7 @@ class _RequestDetailsScreenState extends State<RequestDetailsScreen> {
               builder: (context) =>
                   SaveResultDialog(result: result, request: widget.request),);
           } else if (state is PredictionError) {
-            AppFunctions.showMySnackBar(context, AppStrings.errorMessage);
+            sl<AppFunctions>().showMySnackBar(context, sl<AppStrings>().errorMessage);
           }
         },
         child: ListView(
@@ -67,7 +69,7 @@ class _RequestDetailsScreenState extends State<RequestDetailsScreen> {
                 phone: widget.request.phone),
             Row(
               children: [
-                const FaIcon(FontAwesomeIcons.comment, color: MyColors.primary),
+                 FaIcon(FontAwesomeIcons.comment, color: sl<MyColors>().primary),
                 SizedBox(width: 5.w,),
                 Text(
                   'Complaint:',
@@ -75,7 +77,7 @@ class _RequestDetailsScreenState extends State<RequestDetailsScreen> {
                       decoration: TextDecoration.underline,
                       fontWeight: FontWeight.w700,
                       fontSize: 24.sp,
-                      color: MyColors.primary
+                      color: sl<MyColors>().primary
                   ),
                 ),
               ],
@@ -86,7 +88,7 @@ class _RequestDetailsScreenState extends State<RequestDetailsScreen> {
             SizedBox(height: 10.h,),
             Row(
               children: [
-                const FaIcon(FontAwesomeIcons.disease, color: MyColors.primary),
+                 FaIcon(FontAwesomeIcons.disease, color: sl<MyColors>().primary),
                 SizedBox(width: 5.w,),
                 Text(
                   'Previous diseases:',
@@ -94,7 +96,7 @@ class _RequestDetailsScreenState extends State<RequestDetailsScreen> {
                       decoration: TextDecoration.underline,
                       fontWeight: FontWeight.w700,
                       fontSize: 24.sp,
-                      color: MyColors.primary
+                      color: sl<MyColors>().primary
 
                   ),
                 ),
@@ -121,8 +123,7 @@ class _RequestDetailsScreenState extends State<RequestDetailsScreen> {
                         borderRadius: BorderRadius.all(Radius.circular(10.r))
                     ),
                     clipBehavior: Clip.antiAliasWithSaveLayer,
-                    child: Image.network(
-                        widget.request.xrayImage, fit: BoxFit.cover),
+                    child: CachedNetworkImage(imageUrl:  widget.request.xrayImage, fit: BoxFit.cover),
                   ),
                 ),
               ),
@@ -159,8 +160,8 @@ class _RequestDetailsScreenState extends State<RequestDetailsScreen> {
             //     const SizedBox(),
             SizedBox(height: 30.h,),
             CommonButtons(textLabel: 'Check',
-              textColor: MyColors.white,
-              backgroundColor: MyColors.primary,
+              textColor: sl<MyColors>().white,
+              backgroundColor: sl<MyColors>().primary,
               onTap: () async {
                 final imageFile = await RequestDetailsCubit.get(context)
                     .fileFromImageUrl(widget.request.xrayImage);

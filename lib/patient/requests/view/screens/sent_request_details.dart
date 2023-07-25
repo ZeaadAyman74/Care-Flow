@@ -1,4 +1,5 @@
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:care_flow/patient/responses/view/widgets/title.dart';
 import 'package:care_flow/patient/send_request/models/request_model.dart';
 import 'package:flutter/material.dart';
@@ -33,7 +34,7 @@ final RequestModel request;
                 borderRadius: BorderRadius.all(Radius.circular(10.r))
             ),
             clipBehavior: Clip.antiAliasWithSaveLayer,
-            child: Image.network(request.xrayImage, fit: BoxFit.cover),
+            child: CachedNetworkImage(imageUrl: request.xrayImage, fit: BoxFit.cover),
           ),
         ],
       ),

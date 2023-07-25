@@ -1,4 +1,5 @@
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:care_flow/core/di_container.dart';
 import 'package:care_flow/core/utils/colors.dart';
 import 'package:dotted_line/dotted_line.dart';
 import 'package:flutter/material.dart';
@@ -18,7 +19,7 @@ final String email;
             AutoSizeText.rich(
               TextSpan(
                   children: [
-                    TextSpan(text: 'Name: ',style: TextStyle(fontSize: 22.sp,fontWeight: FontWeight.w600,color: MyColors.primary)),
+                    TextSpan(text: 'Name: ',style: TextStyle(fontSize: 22.sp,fontWeight: FontWeight.w600,color: sl<MyColors>().primary)),
                     TextSpan(text:name,style: TextStyle(fontSize: 18.sp,fontWeight: FontWeight.w500)),
                   ]
               ),
@@ -30,7 +31,7 @@ final String email;
             AutoSizeText.rich(
               TextSpan(
                   children: [
-                    TextSpan(text: 'Email: ',style: TextStyle(fontSize: 22.sp,fontWeight: FontWeight.w600,color: MyColors.primary)),
+                    TextSpan(text: 'Email: ',style: TextStyle(fontSize: 22.sp,fontWeight: FontWeight.w600,color: sl<MyColors>().primary)),
                     TextSpan(text:email,style: TextStyle(fontSize: 18.sp,fontWeight: FontWeight.w500)),
                   ]
               ),
@@ -42,7 +43,7 @@ final String email;
             AutoSizeText.rich(
               TextSpan(
                   children: [
-                    TextSpan(text: 'Age: ',style: TextStyle(fontSize: 22.sp,fontWeight: FontWeight.w600,color: MyColors.primary)),
+                    TextSpan(text: 'Age: ',style: TextStyle(fontSize: 22.sp,fontWeight: FontWeight.w600,color: sl<MyColors>().primary)),
                     TextSpan(text:age.toString(),style: TextStyle(fontSize: 18.sp,fontWeight: FontWeight.w500)),
                   ]
               ),
@@ -54,7 +55,7 @@ final String email;
             AutoSizeText.rich(
               TextSpan(
                   children: [
-                    TextSpan(text: 'Phone: ',style: TextStyle(fontSize: 22.sp,fontWeight: FontWeight.w600,color: MyColors.primary)),
+                    TextSpan(text: 'Phone: ',style: TextStyle(fontSize: 22.sp,fontWeight: FontWeight.w600,color: sl<MyColors>().primary)),
                     TextSpan(text:phone,style: TextStyle(fontSize: 18.sp,fontWeight: FontWeight.w500)),
                   ]
               ),

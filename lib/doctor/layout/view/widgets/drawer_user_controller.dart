@@ -1,3 +1,4 @@
+import 'package:care_flow/core/di_container.dart';
 import 'package:care_flow/core/utils/app_extensions.dart';
 import 'package:care_flow/core/utils/colors.dart';
 import 'package:care_flow/doctor/layout/view/widgets/drawer_index.dart';
@@ -126,7 +127,7 @@ class _DrawerUserControllerState extends State<DrawerUserController>
                         color: Colors.white,
                         boxShadow: <BoxShadow>[
                           BoxShadow(
-                              color: MyColors.grey.withOpacity(0.6),
+                              color: sl<MyColors>().grey.withOpacity(0.6),
                               blurRadius: 24),
                         ],
                       ),

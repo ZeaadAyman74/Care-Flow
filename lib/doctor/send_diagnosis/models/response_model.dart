@@ -11,6 +11,7 @@ class ResponseModel {
   final String xray;
   final String patientNotes;
   final String prevDiseases;
+  final String? doctorImage;
 
   ResponseModel({
     required this.medicine,
@@ -25,6 +26,7 @@ class ResponseModel {
     required this.prevDiseases,
     required this.patientNotes,
     required this.xray,
+    required this.doctorImage
   });
 
   factory ResponseModel.fromJson(Map<String, dynamic> json) {
@@ -41,6 +43,7 @@ class ResponseModel {
       patientNotes: json['notes'],
       xray: json['xray'],
       prevDiseases: json['prev diseases'],
+      doctorImage: json['doctorImage']
     );
   }
 
@@ -58,6 +61,7 @@ class ResponseModel {
       'prev diseases': prevDiseases,
       'xray': xray,
       'notes': patientNotes,
+      'doctorImage':doctorImage,
     };
   }
 }

@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:care_flow/core/routing/routes.dart';
+import 'package:care_flow/core/di_container.dart';
 import 'package:care_flow/core/utils/app_extensions.dart';
 import 'package:care_flow/core/utils/colors.dart';
 import 'package:care_flow/doctor/prediction/business_logic/prediction_cubit.dart';
@@ -148,14 +149,14 @@ String? result;
                     onTap: () async {
                       await PredictionCubit.get(context).imageClassification();
                     },
-                    backgroundColor: MyColors.primary,
+                    backgroundColor: sl<MyColors>().primary,
                     textColor: Colors.white,
                     textLabel: 'Check',
                   ),
                   SizedBox(height: 10.h,),
                   CommonButtons(
                     onTap: () => _showSelectPhotoOptions(context,cubit),
-                    backgroundColor: MyColors.primary,
+                    backgroundColor: sl<MyColors>().primary,
                     textColor: Colors.white,
                     textLabel: 'Add a Photo',
                   ),

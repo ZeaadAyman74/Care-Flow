@@ -7,6 +7,7 @@ class DoctorModel {
   final String specialize;
   final String about;
   final String uId;
+  final String? profileImage;
 
   DoctorModel({
     required this.name,
@@ -17,6 +18,7 @@ class DoctorModel {
     required this.specialize,
     required this.about,
     required this.uId,
+    this.profileImage,
   });
 
   Map<String, dynamic> toJson() {
@@ -29,6 +31,7 @@ class DoctorModel {
       'specialize':specialize,
       'about':about,
       'uId':uId,
+      'profile image':profileImage,
     };
   }
 
@@ -42,6 +45,7 @@ class DoctorModel {
       specialize:json['specialize'],
       about: json['about'],
       uId:json['uId'],
+      profileImage: json['profile image'],
     );
   }
 }

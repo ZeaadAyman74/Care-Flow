@@ -1,4 +1,3 @@
-import 'dart:convert';
 import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
@@ -32,6 +31,7 @@ class PredictionCubit extends Cubit<PredictionState> {
     result=null;
     emit(PickImageSuccess());
   }
+
   Future<void> loadModel() async {
     emit(LoadModelLoading());
     try {
@@ -49,7 +49,6 @@ class PredictionCubit extends Cubit<PredictionState> {
       emit(LoadModelError('Some thing went wrong, please try again'));
     }
   }
-
   List<dynamic>?result;
   Future<void>imageClassification()async{
   try{

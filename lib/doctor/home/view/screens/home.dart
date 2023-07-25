@@ -1,4 +1,5 @@
 import 'package:care_flow/core/routing/routes.dart';
+import 'package:care_flow/core/di_container.dart';
 import 'package:care_flow/core/utils/app_extensions.dart';
 import 'package:care_flow/core/utils/images.dart';
 import 'package:care_flow/doctor/home/view/widgets/disease_area_item.dart';
@@ -15,7 +16,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
-      cacheExtent: 500,
+      cacheExtent: 1000,
       itemBuilder: (context, index) => diseasesArea[index],
       itemCount: diseasesArea.length,
     );
@@ -25,7 +26,7 @@ class _HomeScreenState extends State<HomeScreen> {
     Builder(
       builder: (context) => GestureDetector(onTap: () {
         context.push(Routes.lungRoute);
-      } ,child: const DiseaseAreaItem(image: AppImages.lung1, title: "Lung Diseases")),
+      } ,child:  DiseaseAreaItem(image: sl<AppImages>().lung1, title: "Lung Diseases")),
     ),
   ];
 }

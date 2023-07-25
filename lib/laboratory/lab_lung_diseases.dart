@@ -1,4 +1,5 @@
 import 'package:care_flow/core/routing/routes.dart';
+import 'package:care_flow/core/di_container.dart';
 import 'package:care_flow/core/utils/app_extensions.dart';
 import 'package:care_flow/core/utils/images.dart';
 import 'package:care_flow/doctor/layout/view/widgets/disease_item.dart';
@@ -36,7 +37,7 @@ class LabLungDiseases extends StatelessWidget {
                 onTap: () => context.push(Routes.labCheckRoute),
                 child: DiseaseItem(
                   specialization: SpecializationModel(
-                      image: AppImages.corona, title: 'COVID-19'),
+                      image: sl<AppImages>().corona, title: 'COVID-19'),
                 ))),
       ),
     );

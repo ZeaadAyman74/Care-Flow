@@ -1,4 +1,5 @@
 import 'dart:core';
+import 'package:care_flow/core/di_container.dart';
 import 'package:care_flow/core/utils/colors.dart';
 import 'package:care_flow/core/utils/my_inums.dart';
 import 'package:care_flow/core/utils/snack_bar.dart';
@@ -40,11 +41,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
     return BlocListener<RegisterCubit, RegisterState>(
       listener: (context, state) {
         if (state is RegisterSuccess) {
-          AppFunctions.showToast(
+          sl<AppFunctions>().showToast(
               message: 'Registered Success', state: ToastStates.success);
           goToLogin(context);
         } else if (state is RegisterError) {
-          AppFunctions.showToast(
+          sl<AppFunctions>().showToast(
               message: state.error, state: ToastStates.error);
         }
       },
@@ -170,7 +171,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       decoration: InputDecoration(
                           border: OutlineInputBorder(
                         borderRadius: BorderRadius.all(Radius.circular(10.r)),
-                        borderSide: const BorderSide(color: MyColors.grey),
+                        borderSide:  BorderSide(color: sl<MyColors>().grey),
                       )),
                       isExpanded: true,
                       menuMaxHeight: double.maxFinite,
@@ -248,7 +249,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         hintText: 'about you',
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.all(Radius.circular(10.r)),
-                          borderSide: const BorderSide(color: MyColors.grey),
+                          borderSide:  BorderSide(color: sl<MyColors>().grey),
                         ),
                       ),
                       maxLines: 5,
@@ -270,9 +271,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           return LoginButton(
                             txt: "REGISTER",
                             radius: 5,
-                            background: MyColors.primary,
+                            background: sl<MyColors>().primary,
                             width: double.infinity,
-                            foreColor: MyColors.white,
+                            foreColor: sl<MyColors>().white,
                             function: () async {
                               if (formKey.currentState!.validate()) {
                                 formKey.currentState!.save();
@@ -309,9 +310,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           onPressed: () {
                             HomeLoginCubit.get(context).changeToLogin();
                           },
-                          child: const Text(
+                          child:  Text(
                             "LOGIN",
-                            style: TextStyle(color: MyColors.primary),
+                            style: TextStyle(color: sl<MyColors>().primary),
                           ),
                         )
                       ],

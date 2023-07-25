@@ -1,4 +1,6 @@
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:care_flow/core/di_container.dart';
 import 'package:care_flow/core/utils/colors.dart';
 import 'package:care_flow/core/utils/images.dart';
 import 'package:care_flow/doctor/send_diagnosis/models/response_model.dart';
@@ -15,7 +17,7 @@ final ResponseModel response;
       padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 10.h),
       decoration: BoxDecoration(
         border: Border.all(
-          color:response.isRead? Colors.grey:MyColors.primary,
+          color:response.isRead? Colors.grey:sl<MyColors>().primary,
           width: response.isRead?1:2,
         ),
         borderRadius: BorderRadius.all(Radius.circular(15.r)),
@@ -23,9 +25,14 @@ final ResponseModel response;
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          response.doctorImage==null?
           CircleAvatar(
             radius: 40.r,
-            backgroundImage:  const AssetImage(AppImages.doctor),
+            backgroundImage:   AssetImage(sl<AppImages>().doctor),
+          ):
+          CircleAvatar(
+            radius: 40.r,
+            backgroundImage:  CachedNetworkImageProvider(response.doctorImage!),
           ),
           SizedBox(
             width: 8.w,

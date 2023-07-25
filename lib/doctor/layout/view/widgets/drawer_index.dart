@@ -1,2 +1,2 @@
-enum DrawerIndex { home, feedBack, help, share, about, invite, language }
+enum DrawerIndex { home, editProfile, privateDiagnosis, about, language }
 

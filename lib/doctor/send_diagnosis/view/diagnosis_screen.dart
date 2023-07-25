@@ -1,4 +1,5 @@
 import 'package:care_flow/core/routing/routes.dart';
+import 'package:care_flow/core/di_container.dart';
 import 'package:care_flow/core/utils/app_extensions.dart';
 import 'package:care_flow/core/utils/colors.dart';
 import 'package:care_flow/core/utils/my_inums.dart';
@@ -36,11 +37,11 @@ class _DiagnosisScreenState extends State<DiagnosisScreen> {
           SendDiagnosisCubit.get(context).markFinish(widget.request.requestId!);
           // ReceiveRequestsCubit.get(context).requests.firstWhere((element) => element==widget.request).finished=true;
           context.pop();
-          AppFunctions.showToast(
+          sl<AppFunctions>().showToast(
               message: 'Diagnosis Sent Successfully',
               state: ToastStates.success);
         } else if (state is SendDiagnosisError) {
-          AppFunctions.showMySnackBar(context, state.error);
+          sl<AppFunctions>().showMySnackBar(context, state.error);
         }
       },
       child: GestureDetector(
@@ -95,7 +96,7 @@ class _DiagnosisScreenState extends State<DiagnosisScreen> {
                       children:  [
                         const Icon(Icons.help,color: Colors.grey,),
                         SizedBox(width: 2.w,),
-                         Text('Medicine recommendation to help you',style: TextStyle(color: MyColors.primary,fontSize: 14.sp,fontWeight: FontWeight.w500),),
+                         Text('Medicine recommendation to help you',style: TextStyle(color: sl<MyColors>().primary,fontSize: 14.sp,fontWeight: FontWeight.w500),),
                       ],
                     ) ),
                     SizedBox(
@@ -111,7 +112,7 @@ class _DiagnosisScreenState extends State<DiagnosisScreen> {
                           return CommonButtons(
                             textLabel: 'Send',
                             textColor: Colors.white,
-                            backgroundColor: MyColors.primary,
+                            backgroundColor: sl<MyColors>().primary,
                             onTap: () {
                               if (formKey.currentState!.validate()) {
                                 formKey.currentState!.save();
@@ -121,6 +122,7 @@ class _DiagnosisScreenState extends State<DiagnosisScreen> {
                                   coronaCheck: widget.coronaResult,
                                   doctorName: LayoutCubit.get(context).currentDoctor!.name,
                                   currentRequest: widget.request,
+                                  doctorImage: LayoutCubit.get(context).currentDoctor!.profileImage,
                                 );
                               }
                             },

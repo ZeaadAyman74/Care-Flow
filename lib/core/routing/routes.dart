@@ -1,5 +1,6 @@
 abstract class Routes {
-  static const String first='/ff';
+  static const String first='/';
+  static const String second='/sec';
 
 
   static const String splashRoute='/s';
@@ -13,6 +14,7 @@ abstract class Routes {
   static const String savePrivateResult='/save-Private-results';
   static const String requestDetailsRoute='/request-details';
   static const String sendDiagnosisRoute='/send-diagnosis';
+static const String privateDiagnosisRoute='/private-diagnosis-details';
 
   /////////////////////////////////////////////////////////////////
 

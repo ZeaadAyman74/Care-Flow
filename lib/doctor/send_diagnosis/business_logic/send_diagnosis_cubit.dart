@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:care_flow/core/di_container.dart';
 import 'package:care_flow/core/utils/strings.dart';
 import 'package:care_flow/doctor/send_diagnosis/models/response_model.dart';
 import 'package:care_flow/patient/send_request/models/request_model.dart';
@@ -23,6 +24,7 @@ class SendDiagnosisCubit extends Cubit<SendDiagnosisState> {
     required final String medicine,
     required final String? coronaCheck,
     required final String doctorName,
+    required final doctorImage,
   }) async {
     try {
       emit(SendDiagnosisLoad());
@@ -39,6 +41,7 @@ class SendDiagnosisCubit extends Cubit<SendDiagnosisState> {
         prevDiseases: currentRequest.prevDiseases,
         patientNotes: currentRequest.notes,
         xray: currentRequest.xrayImage,
+        doctorImage: doctorImage,
       );
       await firebase
           .collection('patients')
@@ -48,16 +51,16 @@ class SendDiagnosisCubit extends Cubit<SendDiagnosisState> {
           .set(response!.toJson());
       await firebase
           .collection('doctors')
-          .doc(AppStrings.uId)
+          .doc(sl<AppStrings>().uId)
           .collection('diagnoses')
           .doc()
           .set(response!.toJson());
       emit(SendDiagnosisSuccess());
     } catch (error) {
       if (error is SocketException) {
-        emit(SendDiagnosisError(AppStrings.checkInternet));
+        emit(SendDiagnosisError(sl<AppStrings>().checkInternet));
       } else {
-        emit(SendDiagnosisError(AppStrings.checkInternet));
+        emit(SendDiagnosisError(sl<AppStrings>().checkInternet));
       }
     }
   }
@@ -65,16 +68,16 @@ class SendDiagnosisCubit extends Cubit<SendDiagnosisState> {
     try {
       firebase
           .collection('doctors')
-          .doc(AppStrings.uId)
+          .doc(sl<AppStrings>().uId)
           .collection('requests')
           .doc(requestId)
           .update({'finished': true});
       emit(MarkFinishSuccess());
     } catch (error) {
       if (error is SocketException) {
-        emit(SendDiagnosisError(AppStrings.checkInternet));
+        emit(SendDiagnosisError(sl<AppStrings>().checkInternet));
       } else {
-        emit(SendDiagnosisError(AppStrings.errorMessage));
+        emit(SendDiagnosisError(sl<AppStrings>().errorMessage));
       }
     }
   }

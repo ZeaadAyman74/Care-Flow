@@ -1,5 +1,6 @@
 import 'package:care_flow/core/cache_helper.dart';
 import 'package:care_flow/core/routing/routes.dart';
+import 'package:care_flow/core/di_container.dart';
 import 'package:care_flow/core/utils/app_extensions.dart';
 import 'package:care_flow/core/utils/colors.dart';
 import 'package:care_flow/core/utils/strings.dart';
@@ -33,10 +34,10 @@ class _PatientLayoutScreenState extends State<PatientLayoutScreen> {
             icon: const Icon(Icons.logout_rounded,color: Colors.white,),
             onPressed: ()async{
               await FirebaseAuth.instance.signOut().then((value) async {
-                AppStrings.uId=null;
+                sl<AppStrings>().uId=null;
                 context.pushAndRemove(Routes.chooseRole);
-                await CacheHelper.removeValue(key: 'uId');
-                await CacheHelper.removeValue(key: 'role');
+                await sl<CacheHelper>().removeValue(key: 'uId');
+                await sl<CacheHelper>().removeValue(key: 'role');
               });
             },
           ),
@@ -66,12 +67,12 @@ class _PatientLayoutScreenState extends State<PatientLayoutScreen> {
             
             rippleColor: Colors.grey[300]!,
             gap: 3,
-            activeColor: MyColors.primary,
+            activeColor: sl<MyColors>().primary,
             iconSize: 22,
             padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 12.h),
             duration: const Duration(milliseconds: 400),
             tabBackgroundColor: Colors.grey[100]!,
-            color: MyColors.black.withOpacity(.5),
+            color: sl<MyColors>().black.withOpacity(.5),
             tabs: const [
               GButton(
                 icon: FontAwesomeIcons.house,

@@ -1,3 +1,4 @@
+import 'package:care_flow/core/di_container.dart';
 import 'package:care_flow/patient/login/business_logic/patient_login_cubit/patient_login_cubit.dart';
 import 'package:care_flow/patient/login/view/screens/patient_login_screen.dart';
 import 'package:care_flow/patient/register/business_logic/patient_register_cubit.dart';
@@ -13,13 +14,13 @@ class PatientHomeLoginCubit extends Cubit<PatientHomeLoginState> {
       BlocProvider.of<PatientHomeLoginCubit>(context);
 
   Widget view = BlocProvider(
-    create: (context) => PatientLoginCubit(),
+    create: (context) => sl<PatientLoginCubit>(),
     child: const PatientLoginScreen(),
   );
 
   void changeToLogin() {
     view = BlocProvider(
-      create: (context) => PatientLoginCubit(),
+      create: (context) => sl<PatientLoginCubit>(),
       child: const PatientLoginScreen(),
     );
     emit(ChangeView());
@@ -27,7 +28,7 @@ class PatientHomeLoginCubit extends Cubit<PatientHomeLoginState> {
 
   void changeToRegister() {
     view = BlocProvider(
-      create: (context) => PatientRegisterCubit(),
+      create: (context) => sl<PatientRegisterCubit>(),
       child: const PatientRegisterScreen(),
     );
     emit(ChangeView());

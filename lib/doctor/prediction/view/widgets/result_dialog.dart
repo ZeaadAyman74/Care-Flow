@@ -1,4 +1,5 @@
 import 'package:care_flow/core/routing/routes.dart';
+import 'package:care_flow/core/di_container.dart';
 import 'package:care_flow/core/utils/app_extensions.dart';
 import 'package:care_flow/core/utils/colors.dart';
 import 'package:care_flow/doctor/prediction/business_logic/prediction_cubit.dart';
@@ -27,7 +28,7 @@ class ResultDialog extends StatelessWidget {
             TextSpan(
                 text: 'The Result is: ',
                 style: TextStyle(
-                    color: MyColors.black,
+                    color: sl<MyColors>().black,
                     fontSize: 22.sp,
                     fontWeight: FontWeight.w600)),
             TextSpan(
@@ -39,7 +40,7 @@ class ResultDialog extends StatelessWidget {
                     fontWeight: FontWeight.w600))
           ])),
           SizedBox(height: 40.h,),
-          CommonButtons(textLabel: 'Save results', textColor: Colors.white, backgroundColor: MyColors.primary, onTap: (){
+          CommonButtons(textLabel: 'Save results', textColor: Colors.white, backgroundColor: sl<MyColors>().primary, onTap: (){
             context.pop();
             context.push(Routes.savePrivateResult,arg: {'result':result,'image':cubit.imageFile});
           }),

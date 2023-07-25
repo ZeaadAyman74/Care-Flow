@@ -1,4 +1,6 @@
+import 'package:care_flow/core/di_container.dart';
 import 'package:care_flow/core/utils/snack_bar.dart';
+import 'package:care_flow/doctor/receive_request/view/widgets/empty_widget.dart';
 import 'package:care_flow/patient/responses/business_logic/responses_cubit.dart';
 import 'package:care_flow/patient/responses/view/widgets/responses_list.dart';
 import 'package:flutter/material.dart';
@@ -28,7 +30,7 @@ class _ResponsesScreenState extends State<ResponsesScreen> {
     return BlocListener<ResponsesCubit, ResponsesState>(
       listener: (context, state) {
         if (state is GetResponsesError) {
-          AppFunctions.showMySnackBar(context, state.error);
+          sl<AppFunctions>().showMySnackBar(context, state.error);
         }
       },
       child: BlocBuilder<ResponsesCubit, ResponsesState>(
@@ -44,9 +46,7 @@ class _ResponsesScreenState extends State<ResponsesScreen> {
                     responses: ResponsesCubit.get(context).responses),
               );
             } else {
-              return const Center(
-                child: Text('No Responses Yet'),
-              );
+              return const EmptyWidget(text: 'No Responses Yet');
             }
           } else {
             return const Center(

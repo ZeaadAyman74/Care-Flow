@@ -1,3 +1,5 @@
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:care_flow/core/di_container.dart';
 import 'package:care_flow/core/utils/app_extensions.dart';
 import 'package:care_flow/core/utils/colors.dart';
 import 'package:flutter/material.dart';
@@ -24,7 +26,7 @@ class CompletePhoto extends StatelessWidget {
                   clipBehavior: Clip.none,
                   panEnabled: false,
 
-                  child: Image.network(image)),
+                  child: CachedNetworkImage(imageUrl:image)),
             ),
             Positioned(
               left: 20,
@@ -36,7 +38,7 @@ class CompletePhoto extends StatelessWidget {
                   shape: BoxShape.circle,
                   color: Colors.white,
                 ) ,
-                child: IconButton(onPressed: ()=>context.pop(), icon: const Icon(Icons.arrow_back,color: MyColors.black,)),
+                child: IconButton(onPressed: ()=>context.pop(), icon:  Icon(Icons.arrow_back,color: sl<MyColors>().black,)),
               ),
             ),
           ],

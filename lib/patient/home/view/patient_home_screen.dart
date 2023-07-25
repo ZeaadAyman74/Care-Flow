@@ -1,4 +1,5 @@
 import 'package:care_flow/core/routing/routes.dart';
+import 'package:care_flow/core/di_container.dart';
 import 'package:care_flow/core/utils/app_extensions.dart';
 import 'package:care_flow/core/utils/images.dart';
 import 'package:care_flow/doctor/layout/view/widgets/disease_item.dart';
@@ -17,14 +18,14 @@ class _PatientHomeScreenState extends State<PatientHomeScreen> {
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    precacheImage(const AssetImage(AppImages.lung), context);
-    precacheImage(const AssetImage(AppImages.heart), context);
-    precacheImage(const AssetImage(AppImages.bone), context);
-    precacheImage(const AssetImage(AppImages.brain), context);
-    precacheImage(const AssetImage(AppImages.eye), context);
-    precacheImage(const AssetImage(AppImages.skin), context);
-    precacheImage(const AssetImage(AppImages.urologist), context);
-    precacheImage(const AssetImage(AppImages.ear), context);
+    precacheImage( AssetImage(sl<AppImages>().lung), context);
+    precacheImage( AssetImage(sl<AppImages>().heart), context);
+    precacheImage( AssetImage(sl<AppImages>().bone), context);
+    precacheImage( AssetImage(sl<AppImages>().brain), context);
+    precacheImage( AssetImage(sl<AppImages>().eye), context);
+    precacheImage( AssetImage(sl<AppImages>().skin), context);
+    precacheImage( AssetImage(sl<AppImages>().urologist), context);
+    precacheImage( AssetImage(sl<AppImages>().ear), context);
 
   }
   @override
@@ -59,13 +60,13 @@ class _PatientHomeScreenState extends State<PatientHomeScreen> {
   }
 
   List<SpecializationModel> specializations = [
-    SpecializationModel(image: AppImages.lung, title: 'Lung diseases'),
-    SpecializationModel(image: AppImages.heart, title: 'Cardiology'),
-    SpecializationModel(image: AppImages.bone, title: 'Orthopedic'),
-    SpecializationModel(image: AppImages.brain, title: 'Brain diseases'),
-    SpecializationModel(image: AppImages.eye, title: 'Ophthalmologist'),
-    SpecializationModel(image: AppImages.skin, title: 'Dermatologist'),
-    SpecializationModel(image: AppImages.urologist, title: 'Urologist'),
-    SpecializationModel(image: AppImages.ear, title: 'Otolaryngologies'),
+    SpecializationModel(image: sl<AppImages>().lung, title: 'Lung diseases'),
+    SpecializationModel(image: sl<AppImages>().heart, title: 'Cardiology'),
+    SpecializationModel(image: sl<AppImages>().bone, title: 'Orthopedic'),
+    SpecializationModel(image: sl<AppImages>().brain, title: 'Brain diseases'),
+    SpecializationModel(image: sl<AppImages>().eye, title: 'Ophthalmologist'),
+    SpecializationModel(image: sl<AppImages>().skin, title: 'Dermatologist'),
+    SpecializationModel(image: sl<AppImages>().urologist, title: 'Urologist'),
+    SpecializationModel(image: sl<AppImages>().ear, title: 'Otolaryngologies'),
   ];
 }

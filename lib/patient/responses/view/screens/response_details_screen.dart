@@ -1,4 +1,6 @@
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:care_flow/core/di_container.dart';
 import 'package:care_flow/core/utils/colors.dart';
 import 'package:care_flow/doctor/receive_request/view/widgets/info_part.dart';
 import 'package:care_flow/doctor/send_diagnosis/models/response_model.dart';
@@ -31,7 +33,7 @@ class ResponseDetailsScreen extends StatelessWidget {
           Container(
             padding: EdgeInsets.all(15.w),
             decoration: BoxDecoration(
-              border: Border.all(color: MyColors.primary),
+              border: Border.all(color: sl<MyColors>().primary),
               borderRadius: BorderRadius.all(Radius.circular(20.r),
               ),
             ),
@@ -40,7 +42,7 @@ class ResponseDetailsScreen extends StatelessWidget {
               children: [
                 Align(
                   alignment: Alignment.center,
-                  child: Text('Your Request',style: TextStyle(fontSize: 24.sp,color: MyColors.primary,fontWeight: FontWeight.w700),),
+                  child: Text('Your Request',style: TextStyle(fontSize: 24.sp,color: sl<MyColors>().primary,fontWeight: FontWeight.w700),),
                 ),
                 SizedBox(height: 20.h,),
                 const MyTitle(title: 'complaint:', icon: FontAwesomeIcons.comment),
@@ -60,7 +62,7 @@ class ResponseDetailsScreen extends StatelessWidget {
                         borderRadius: BorderRadius.all(Radius.circular(10.r))
                     ),
                     clipBehavior: Clip.antiAliasWithSaveLayer,
-                    child: Image.network(response.xray, fit: BoxFit.cover),
+                    child: CachedNetworkImage(imageUrl: response.xray, fit: BoxFit.cover,),
                   ),
                 ),
               ],
@@ -70,7 +72,7 @@ class ResponseDetailsScreen extends StatelessWidget {
           Container(
             padding: EdgeInsets.all(15.w),
             decoration: BoxDecoration(
-              border: Border.all(color: MyColors.primary),
+              border: Border.all(color: sl<MyColors>().primary),
               borderRadius: BorderRadius.all(Radius.circular(20.r),
               ),
             ),
@@ -79,7 +81,7 @@ class ResponseDetailsScreen extends StatelessWidget {
               children: [
                 Align(
                   alignment: Alignment.center,
-                  child: Text('Doctor Diagnosis',style: TextStyle(fontSize: 24.sp,color: MyColors.primary,fontWeight: FontWeight.w700),),
+                  child: Text('Doctor Diagnosis',style: TextStyle(fontSize: 24.sp,color: sl<MyColors>().primary,fontWeight: FontWeight.w700),),
                 ),
                 SizedBox(height: 20.h,),
                 const MyTitle(
@@ -91,15 +93,15 @@ class ResponseDetailsScreen extends StatelessWidget {
                 ),
                 Row(
                   children: [
-                    const FaIcon(
-                      FontAwesomeIcons.virusCovid, color: MyColors.primary,),
+                     FaIcon(
+                      FontAwesomeIcons.virusCovid, color: sl<MyColors>().primary,),
                     SizedBox(width: 5.w,),
                     AutoSizeText.rich(
                       TextSpan(
                           children: [
                             TextSpan(
                               text: 'COVID-19 Check:',
-                              style: TextStyle(fontSize: 18.sp, color: MyColors
+                              style: TextStyle(fontSize: 18.sp, color: sl<MyColors>()
                                   .primary),
                             ),
                             TextSpan(

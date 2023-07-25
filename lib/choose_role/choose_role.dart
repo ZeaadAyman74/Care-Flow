@@ -1,5 +1,6 @@
 import 'package:care_flow/choose_role/business_logic/choose_role_cubit.dart';
 import 'package:care_flow/core/routing/routes.dart';
+import 'package:care_flow/core/di_container.dart';
 import 'package:care_flow/core/utils/app_extensions.dart';
 import 'package:care_flow/core/utils/colors.dart';
 import 'package:care_flow/core/utils/images.dart';
@@ -29,7 +30,7 @@ class ChooseRoleScreen extends StatelessWidget {
                 style: TextStyle(
                     fontSize: 24.sp,
                     fontWeight: FontWeight.w700,
-                    color: MyColors.black),
+                    color: sl<MyColors>().black),
               ),
               SizedBox(
                 height: 10.h,
@@ -50,7 +51,7 @@ class ChooseRoleScreen extends StatelessWidget {
                       child: BlocBuilder<ChooseRoleCubit, ChooseRoleState>(
                     builder: (context, state) => CharacterItem(
                       isChecked: ChooseRoleCubit.get(context).isPatient,
-                      image: AppImages.patient,
+                      image: sl<AppImages>().patient,
                       role: 'Patient',
                       onTap: () {
                         if (ChooseRoleCubit.get(context).isDoctor) {
@@ -66,7 +67,7 @@ class ChooseRoleScreen extends StatelessWidget {
                       child: BlocBuilder<ChooseRoleCubit, ChooseRoleState>(
                     builder: (context, state) => CharacterItem(
                       isChecked: ChooseRoleCubit.get(context).isDoctor,
-                      image: AppImages.doctor,
+                      image: sl<AppImages>().doctor,
                       role: 'Doctor',
                       onTap: () {
                         if (ChooseRoleCubit.get(context).isPatient) {
@@ -94,7 +95,7 @@ class ChooseRoleScreen extends StatelessWidget {
                         context.push(Routes.patientLoginRoute);
                       }
                     },
-                    color: MyColors.primary,
+                    color: sl<MyColors>().primary,
                     child: Text('Continue',
                         style: TextStyle(color: Colors.white, fontSize: 18.sp)),
                   ),
@@ -130,8 +131,8 @@ class _CharacterItemState extends State<CharacterItem> {
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    precacheImage(const AssetImage(AppImages.patient), context);
-    precacheImage(const AssetImage(AppImages.doctor), context);
+    precacheImage( AssetImage(sl<AppImages>().patient), context);
+    precacheImage( AssetImage(sl<AppImages>().doctor), context);
   }
   @override
   Widget build(BuildContext context) {
@@ -150,7 +151,7 @@ class _CharacterItemState extends State<CharacterItem> {
               Container(
                 decoration: BoxDecoration(
                     border: Border.all(
-                      color: widget.isChecked ? MyColors.primary : Colors.grey[200]!,
+                      color: widget.isChecked ? sl<MyColors>().primary : Colors.grey[200]!,
                       width: 2,
                     ),
                     borderRadius: BorderRadius.all(Radius.circular(10.r))),
@@ -173,7 +174,7 @@ class _CharacterItemState extends State<CharacterItem> {
                           style: TextStyle(
                               fontSize: 18.sp,
                               fontWeight: FontWeight.w600,
-                              color: MyColors.black),
+                              color: sl<MyColors>().black),
                         ),
                       ],
                     ),

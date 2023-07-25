@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:care_flow/core/di_container.dart';
 import 'package:care_flow/core/utils/strings.dart';
 import 'package:care_flow/doctor/send_diagnosis/models/response_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -20,7 +21,7 @@ class DiagnosesCubit extends Cubit<DiagnosesState> {
     try {
       var currentDiagnoses = await FirebaseFirestore.instance
           .collection('doctors')
-          .doc(AppStrings.uId)
+          .doc(sl<AppStrings>().uId)
           .collection('diagnoses')
           .get();
       currentDiagnoses.docs.forEach((diagnosis) {
@@ -29,9 +30,9 @@ class DiagnosesCubit extends Cubit<DiagnosesState> {
       emit(GetMyDiagnosesSuccess());
     } catch (error) {
       if (error is SocketException) {
-        emit(GetMyDiagnosesError(AppStrings.checkInternet));
+        emit(GetMyDiagnosesError(sl<AppStrings>().checkInternet));
       } else {
-        emit(GetMyDiagnosesError(AppStrings.errorMessage));
+        emit(GetMyDiagnosesError(sl<AppStrings>().errorMessage));
       }
     }
   }

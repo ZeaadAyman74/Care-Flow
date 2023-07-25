@@ -1,6 +1,8 @@
+import 'package:care_flow/core/di_container.dart';
 import 'package:care_flow/core/utils/snack_bar.dart';
 import 'package:care_flow/doctor/diagnoses/business_logic/diagnoses_cubit.dart';
 import 'package:care_flow/doctor/diagnoses/view/widgets/diagnoses_list.dart';
+import 'package:care_flow/doctor/receive_request/view/widgets/empty_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -28,7 +30,7 @@ class _DiagnosesScreenState extends State<DiagnosesScreen> {
     return BlocListener<DiagnosesCubit, DiagnosesState>(
       listener: (context, state) {
         if (state is GetMyDiagnosesError) {
-          AppFunctions.showMySnackBar(context, state.error);
+          sl<AppFunctions>().showMySnackBar(context, state.error);
         }
       },
       child: BlocBuilder<DiagnosesCubit, DiagnosesState>(
@@ -43,9 +45,7 @@ class _DiagnosesScreenState extends State<DiagnosesScreen> {
                 child: DiagnosesList(diagnoses: DiagnosesCubit.get(context).diagnoses),
               );
             } else {
-              return const Center(
-                child: Text('No Diagnoses Yet'),
-              );
+              return const EmptyWidget(text: 'No Diagnoses Yet');
             }
           } else {
             return const Center(

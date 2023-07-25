@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:care_flow/core/di_container.dart';
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 import 'package:care_flow/core/utils/strings.dart';
 import 'package:care_flow/patient/register/models/patient_model.dart';
@@ -52,7 +53,7 @@ FirebaseFirestore firebase=FirebaseFirestore.instance;
         prevDiseases: prevDiseases,
         xrayImage: imageUrl,
         notes: notes,
-        patientId: AppStrings.uId!,
+        patientId: sl<AppStrings>().uId!,
         doctorSpecialize:doctorSpecialize,
         doctorName: doctorName,
         read: false,
@@ -64,10 +65,10 @@ FirebaseFirestore firebase=FirebaseFirestore.instance;
           .collection('requests')
           .doc();
    await doc.set(request.toJson(doc.id));
-   var patientDoc= firebase.collection('patients').doc(AppStrings.uId).collection('requests').doc();
+   var patientDoc= firebase.collection('patients').doc(sl<AppStrings>().uId).collection('requests').doc();
    await patientDoc.set(request.toJson(patientDoc.id));
     } catch (error) {
-      emit(SendRequestError(AppStrings.errorMessage));
+      emit(SendRequestError(sl<AppStrings>().errorMessage));
     }
   }
 
@@ -100,7 +101,7 @@ FirebaseFirestore firebase=FirebaseFirestore.instance;
       );
       emit(SendRequestSuccess());
     } catch (error) {
-      emit(SendRequestError(AppStrings.errorMessage));
+      emit(SendRequestError(sl<AppStrings>().errorMessage));
       if (kDebugMode) {
         print(error.toString());
       }

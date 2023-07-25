@@ -1,22 +1,26 @@
-abstract class AppImages{
-  static const String login='assets/images/login.gif';
-  static const String splash='assets/images/splash.gif';
-  static const String corona='assets/images/corona.jpg';
-  static const String lung='assets/images/lung.jpg';
-  static const String lung1='assets/images/lung1.jpg';
-  static const String patient='assets/images/patient.jpg';
-  static const String doctor='assets/images/doctor.jpg';
-  static const String urologist='assets/images/Urologist.jpg';
-  static const String brain='assets/images/brain.jpg';
-  static const String eye='assets/images/eye.jpg';
-  static const String ear='assets/images/ear.jpg';
-  static const String skin='assets/images/skin.jpg';
-  static const String bone='assets/images/bone.jpg';
-  static const String heart='assets/images/heart.jpg';
-  static const String diagnosis='assets/images/diagnosis.jpg';
-  static const String drug='assets/images/drug.jpg';
-  static const String consultation='assets/images/consultation.jpg';
-  static const String chat='assets/images/chat.jpg';
-  static const String  patientLogin='assets/images/patient_login.png';
-  static const String lab='assets/images/lab.jpg';
+class AppImages{
+  final String login='assets/images/login.json';
+  final String splash='assets/images/splash.gif';
+  final String corona='assets/images/corona.jpg';
+  final String lung='assets/images/lung.jpg';
+  final String lung1='assets/images/lung1.jpg';
+  final String patient='assets/images/patient.jpg';
+  final String doctor='assets/images/doctor.jpg';
+  final String urologist='assets/images/Urologist.jpg';
+  final String brain='assets/images/brain.jpg';
+  final String eye='assets/images/eye.jpg';
+  final String ear='assets/images/ear.jpg';
+  final String skin='assets/images/skin.jpg';
+  final String bone='assets/images/bone.jpg';
+  final String heart='assets/images/heart.jpg';
+  final String diagnosis='assets/images/diagnosis.jpg';
+  final String drug='assets/images/drug.jpg';
+  final String consultation='assets/images/consultation.jpg';
+  final String chat='assets/images/chat.jpg';
+  final String  patientLogin='assets/images/patient_login.png';
+  final String lab='assets/images/lab.jpg';
+  final String empty='assets/images/empty.json';
+  final String diagnosisIcon='assets/images/diagnosis_icon.png';
+
+ const AppImages();
 }

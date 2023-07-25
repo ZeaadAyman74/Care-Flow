@@ -10,9 +10,9 @@ class DrawerItemData {
     this.imageName = '',
   });
 
-  String labelName;
-  Icon? icon;
-  bool isAssetsImage;
-  String imageName;
-  DrawerIndex? index;
+  final String labelName;
+  final Icon? icon;
+final  bool isAssetsImage;
+ final String imageName;
+ final DrawerIndex? index;
 }

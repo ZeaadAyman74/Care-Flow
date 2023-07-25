@@ -1,3 +1,4 @@
+import 'package:care_flow/core/di_container.dart';
 import 'package:care_flow/core/utils/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -15,14 +16,14 @@ class MyTitle extends StatelessWidget {
       children: [
         FaIcon(
           icon,
-          color: MyColors.primary,
+          color: sl<MyColors>().primary,
         ),
         SizedBox(
           width: 5.w,
         ),
         Text(
           title,
-          style: TextStyle(color: MyColors.primary, fontSize: 22.sp),
+          style: TextStyle(color: sl<MyColors>().primary, fontSize: 22.sp),
         )
       ],
     );

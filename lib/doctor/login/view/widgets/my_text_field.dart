@@ -1,3 +1,4 @@
+import 'package:care_flow/core/di_container.dart';
 import 'package:care_flow/core/utils/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -42,18 +43,18 @@ class MyTextField extends StatelessWidget {
       decoration: InputDecoration(
         border: OutlineInputBorder(
           borderRadius: BorderRadius.all(Radius.circular(10.r)),
-          borderSide: const BorderSide(color: MyColors.grey),
+          borderSide:  BorderSide(color: sl<MyColors>().grey),
         ),
         hintText: label,
         hintStyle: Theme.of(context)
             .textTheme
             .bodyText1!
             .copyWith(fontSize: 15, color: Colors.black),
-        prefixIcon: Icon(prefix, color: MyColors.primary),
+        prefixIcon: Icon(prefix, color: sl<MyColors>().primary),
         suffixIcon: IconButton(
-          icon: Icon(suffix, color: MyColors.primary),
+          icon: Icon(suffix, color: sl<MyColors>().primary),
           onPressed: suffixPress,
-          color: MyColors.black,
+          color: sl<MyColors>().black,
         ),
       ),
     );

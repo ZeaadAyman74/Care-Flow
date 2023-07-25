@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:care_flow/core/di_container.dart';
 import 'package:care_flow/core/utils/app_extensions.dart';
 import 'package:care_flow/core/utils/colors.dart';
 import 'package:flutter/material.dart';
@@ -37,11 +38,11 @@ class _CompletePhotoScreenState extends State<CompletePhotoScreen> {
               child: Container(
                 height: 50.w,
                 width: 50.w,
-                decoration:const BoxDecoration(
+                decoration: const BoxDecoration(
                   shape: BoxShape.circle,
                   color: Colors.white,
                 ) ,
-                child: IconButton(onPressed: ()=>context.pop(), icon: const Icon(Icons.arrow_back,color: MyColors.black,)),
+                child: IconButton(onPressed: ()=>context.pop(), icon:  Icon(Icons.arrow_back,color: sl<MyColors>().black,)),
               ),
             ),
           ],

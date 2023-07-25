@@ -1,4 +1,6 @@
 import 'dart:io';
+import 'package:care_flow/core/di_container.dart';
+import 'package:care_flow/core/utils/strings.dart';
 import 'package:care_flow/doctor/private_diagnosis/models/private_diagnosis_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
@@ -28,13 +30,17 @@ class PrivateDiagnosisCubit extends Cubit<PrivateDiagnosisState> {
         age: age, name: name, result: result, notes: notes, image: image);
     try {
       await FirebaseFirestore.instance
-          .collection('users')
+          .collection('doctors')
           .doc(FirebaseAuth.instance.currentUser!.uid)
           .collection('private diagnosis')
           .doc()
           .set(diagnosisModel!.toJson());
     } catch (error) {
-      emit(SaveDiagnosisError('Something went wrong please try again'));
+      if(error is SocketException){
+        emit(SaveDiagnosisError(sl<AppStrings>().checkInternet));
+      }else {
+        emit(SaveDiagnosisError(sl<AppStrings>().errorMessage));
+      }
       if (kDebugMode) {
         print(error.toString());
       }
@@ -57,7 +63,12 @@ class PrivateDiagnosisCubit extends Cubit<PrivateDiagnosisState> {
      await saveDiagnosis(name: name, age: age, result: result, notes: notes, image: imageUrl);
       emit(SaveDiagnosisSuccess());
     } catch (error) {
-      emit(SaveDiagnosisError('Some thing went error, please try again'));
+      if(error is SocketException){
+        emit(SaveDiagnosisError(sl<AppStrings>().checkInternet));
+
+      }else {
+        emit(SaveDiagnosisError(sl<AppStrings>().errorMessage));
+      }
       if (kDebugMode) {
         print(error.toString());
       }

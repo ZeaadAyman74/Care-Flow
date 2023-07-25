@@ -1,5 +1,7 @@
+import 'package:care_flow/core/di_container.dart';
 import 'package:care_flow/core/utils/images.dart';
 import 'package:care_flow/core/utils/snack_bar.dart';
+import 'package:care_flow/doctor/receive_request/view/widgets/empty_widget.dart';
 import 'package:care_flow/patient/requests/business_logic/requests_cubit.dart';
 import 'package:care_flow/patient/requests/view/widgets/sent_requests_list.dart';
 import 'package:flutter/material.dart';
@@ -16,11 +18,13 @@ class _SentRequestsScreenState extends State<SentRequestsScreen> {
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    precacheImage( const AssetImage(AppImages.doctor), context);
+    precacheImage(  AssetImage(sl<AppImages>().doctor), context);
   }
   void getRequests() async {
     if( RequestsCubit.get(context).requests.isEmpty){
       await RequestsCubit.get(context).getRequests();
+    }else {
+      print( RequestsCubit.get(context).requests);
     }
   }
 
@@ -34,7 +38,7 @@ class _SentRequestsScreenState extends State<SentRequestsScreen> {
     return BlocListener<RequestsCubit, RequestsState>(
       listener: (context, state) {
         if (state is GetRequestsError) {
-          AppFunctions.showMySnackBar(context, state.error);
+          sl<AppFunctions>().showMySnackBar(context, state.error);
         }
       },
       child: BlocBuilder<RequestsCubit, RequestsState>(
@@ -50,9 +54,7 @@ class _SentRequestsScreenState extends State<SentRequestsScreen> {
                     requests: RequestsCubit.get(context).requests),
               );
             } else {
-              return const Center(
-                child: Text('No Requests Yet'),
-              );
+              return const EmptyWidget(text: 'No Requests Yet');
             }
           } else {
             return const Center(

@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:care_flow/core/di_container.dart';
 import 'package:care_flow/core/utils/strings.dart';
 import 'package:care_flow/doctor/send_diagnosis/models/response_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -15,16 +16,16 @@ class ResponsesCubit extends Cubit<ResponsesState> {
   Future<void>getResponses()async{
     emit(GetResponsesLoad());
     try{
-      var currentResponses=await FirebaseFirestore.instance.collection('patients').doc(AppStrings.uId).collection('responses').get();
+      var currentResponses=await FirebaseFirestore.instance.collection('patients').doc(sl<AppStrings>().uId).collection('responses').get();
       currentResponses.docs.forEach((response) {
         responses.add(ResponseModel.fromJson(response.data()));
       });
       emit(GetResponsesSuccess());
     }catch(error){
       if(error is SocketException){
-        emit(GetResponsesError(AppStrings.checkInternet));
+        emit(GetResponsesError(sl<AppStrings>().checkInternet));
       }
-      emit(GetResponsesError(AppStrings.errorMessage));
+      emit(GetResponsesError(sl<AppStrings>().errorMessage));
     }
   }
 }

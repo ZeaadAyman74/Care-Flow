@@ -14,6 +14,11 @@ class DiseaseAreaItem extends StatefulWidget {
 
 class _DiseaseAreaItemState extends State<DiseaseAreaItem> {
   @override
+  void didChangeDependencies() {
+    precacheImage(  AssetImage(widget.image), context);
+    super.didChangeDependencies();
+  }
+  @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(10),

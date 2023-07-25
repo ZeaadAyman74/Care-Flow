@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:care_flow/core/di_container.dart';
 import 'package:care_flow/core/utils/app_extensions.dart';
 import 'package:care_flow/core/utils/colors.dart';
 import 'package:care_flow/core/utils/my_inums.dart';
@@ -31,11 +32,11 @@ class _SaveResultScreenState extends State<SaveResultScreen> {
     return BlocListener<PrivateDiagnosisCubit, PrivateDiagnosisState>(
       listener: (context, state) {
         if (state is SaveDiagnosisSuccess) {
-          AppFunctions.showToast(
+          sl<AppFunctions>().showToast(
               message: 'Result Saved Successfully', state: ToastStates.success);
           context.pop();
         } else if (state is SaveDiagnosisError) {
-          AppFunctions.showToast(
+          sl<AppFunctions>().showToast(
               message: state.error, state: ToastStates.error);
         }
       },
@@ -79,15 +80,15 @@ class _SaveResultScreenState extends State<SaveResultScreen> {
                   BlocBuilder<PrivateDiagnosisCubit, PrivateDiagnosisState>(
                     builder: (context, state) {
                       if (state is SaveDiagnosisLoad) {
-                        return const Center(
+                        return  Center(
                             child: CircularProgressIndicator(
-                          color: MyColors.primary,
+                          color: sl<MyColors>().primary,
                         ));
                       } else {
                         return CommonButtons(
                           textLabel: 'Save',
                           textColor: Colors.white,
-                          backgroundColor: MyColors.primary,
+                          backgroundColor: sl<MyColors>().primary,
                           onTap: () async {
                             formKey.currentState!.save();
                             await PrivateDiagnosisCubit.get(context)

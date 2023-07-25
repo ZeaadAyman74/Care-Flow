@@ -1,4 +1,3 @@
-import 'package:care_flow/doctor/prediction/business_logic/prediction_cubit.dart';
 import 'package:care_flow/doctor/prediction/view/widgets/re_usable_select_photo_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';

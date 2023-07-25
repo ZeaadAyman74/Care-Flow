@@ -1,5 +1,7 @@
 import 'package:care_flow/core/cache_helper.dart';
+import 'package:care_flow/core/fcm/fcm.dart';
 import 'package:care_flow/core/routing/routes.dart';
+import 'package:care_flow/core/di_container.dart';
 import 'package:care_flow/core/utils/app_extensions.dart';
 import 'package:care_flow/core/utils/colors.dart';
 import 'package:care_flow/core/utils/images.dart';
@@ -30,19 +32,6 @@ class _PatientLoginScreenState extends State<PatientLoginScreen> with TickerProv
   var passController = TextEditingController();
 
   var formKey = GlobalKey<FormState>();
-
-  @override
-  void initState() {
-    _animationController = AnimationController(
-        vsync: this, duration: const Duration(milliseconds: 3000));
-    final Animation<double> animation =
-    Tween<double>(begin: 0.0, end: 1.0).animate(CurvedAnimation(
-        parent: _animationController!,
-        curve: const Interval(0.0, 1.0, curve: Curves.fastOutSlowIn)));
-    _animationController!.forward();
-    super.initState();
-  }
-
   void _goToHome(){
     context.pushAndRemove(Routes.patientLayoutRoute);
   }
@@ -51,7 +40,6 @@ class _PatientLoginScreenState extends State<PatientLoginScreen> with TickerProv
   void dispose() {
     emailController.dispose();
     passController.dispose();
-    _animationController!.dispose();
     super.dispose();
   }
 
@@ -60,13 +48,14 @@ class _PatientLoginScreenState extends State<PatientLoginScreen> with TickerProv
     return BlocListener<PatientLoginCubit,PatientLoginState>(
       listener: (context, state) async {
         if(state is PatientLoginSuccess){
-          AppFunctions.showToast(message: 'Login Success', state: ToastStates.success);
-          AppStrings.uId=FirebaseAuth.instance.currentUser!.uid;
-          await CacheHelper.putData(key: 'uId', value: AppStrings.uId);
-          await CacheHelper.putData(key: 'role', value: 'p');
+          sl<AppFunctions>().showToast(message: 'Login Success', state: ToastStates.success);
+          sl<AppStrings>().uId=FirebaseAuth.instance.currentUser!.uid;
+          await sl<CacheHelper>().putData(key: 'uId', value: sl<AppStrings>().uId);
+          await sl<CacheHelper>().putData(key: 'role', value: 'p');
+          await sl<FirebaseApi>().refreshToken();
           _goToHome();
         }else if(state is PatientLoginError){
-          AppFunctions.showToast(message: state.error, state: ToastStates.error);
+          sl<AppFunctions>().showToast(message: state.error, state: ToastStates.error);
         }
       },
       child: SafeArea(
@@ -81,7 +70,7 @@ class _PatientLoginScreenState extends State<PatientLoginScreen> with TickerProv
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    Image.asset(AppImages.patientLogin,),
+                    Image.asset(sl<AppImages>().patientLogin,),
                     SizedBox(height: 30.h,),
                     Text(
                       "LOGIN",
@@ -92,7 +81,7 @@ class _PatientLoginScreenState extends State<PatientLoginScreen> with TickerProv
                           .titleLarge!
                           .copyWith(
                           fontSize: 30.sp,
-                          color:MyColors.black
+                          color:sl<MyColors>().black
                       ),
                     ),
                     SizedBox(
@@ -157,9 +146,9 @@ class _PatientLoginScreenState extends State<PatientLoginScreen> with TickerProv
                                   await  PatientLoginCubit.get(context).loginPatient(email: emailController.text, password: passController.text);
                                 }
                               },
-                              background: MyColors.primary,
+                              background: sl<MyColors>().primary,
                               width: double.infinity,
-                              foreColor: MyColors.white);
+                              foreColor: sl<MyColors>().white);
                         }
                       },),
                     SizedBox(height: 10.h,),
@@ -174,9 +163,9 @@ class _PatientLoginScreenState extends State<PatientLoginScreen> with TickerProv
                           onPressed: () {
                             PatientHomeLoginCubit.get(context).changeToRegister();
                           },
-                          child: const Text(
+                          child:  Text(
                             "REGISTER",
-                            style: TextStyle(color: MyColors.primary),
+                            style: TextStyle(color: sl<MyColors>().primary),
                           ),
                         )
                       ],

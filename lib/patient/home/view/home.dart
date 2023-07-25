@@ -1,4 +1,5 @@
 import 'package:care_flow/core/routing/routes.dart';
+import 'package:care_flow/core/di_container.dart';
 import 'package:care_flow/core/utils/app_extensions.dart';
 import 'package:care_flow/core/utils/images.dart';
 import 'package:care_flow/doctor/layout/view/widgets/disease_item.dart';
@@ -39,7 +40,7 @@ class _HomeState extends State<Home> {
       builder: (context) =>  GestureDetector(
         onTap: () => context.push(Routes.diagnosisRoute),
         child: DiseaseItem(
-          specialization: SpecializationModel(image: AppImages.diagnosis, title: 'Diagnosis'),
+          specialization: SpecializationModel(image: sl<AppImages>().diagnosis, title: 'Diagnosis'),
         ),
       ),
     ),
@@ -47,7 +48,7 @@ class _HomeState extends State<Home> {
       builder: (context) =>  GestureDetector(
         onTap: () => context.push(Routes.medicineRecommenderRoute),
         child: DiseaseItem(
-          specialization: SpecializationModel(image: AppImages.drug, title: 'Medicine Recommender'),
+          specialization: SpecializationModel(image: sl<AppImages>().drug, title: 'Medicine Recommender'),
         ),
       ),
     ),
@@ -55,7 +56,7 @@ class _HomeState extends State<Home> {
       builder: (context) =>  GestureDetector(
         onTap: () => context.push(Routes.labSpecializationsRoute),
         child: DiseaseItem(
-          specialization: SpecializationModel(image: AppImages.lab, title: 'Lab'),
+          specialization: SpecializationModel(image: sl<AppImages>().lab, title: 'Lab'),
         ),
       ),
     ),

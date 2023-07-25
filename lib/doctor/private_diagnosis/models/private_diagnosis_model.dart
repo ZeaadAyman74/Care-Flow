@@ -14,7 +14,7 @@ class PrivateDiagnosisModel {
 });
 
   factory PrivateDiagnosisModel.fromJson(Map<String,dynamic>json){
-    return PrivateDiagnosisModel(age: json['age'], name:json['name'], result: json['result'],notes:json['notes'],image: json['base64Image']);
+    return PrivateDiagnosisModel(age: json['age'], name:json['name'], result: json['result'],notes:json['notes'],image: json['image']);
   }
 
   Map<String,dynamic> toJson(){
@@ -22,8 +22,8 @@ class PrivateDiagnosisModel {
       'name':name??'NO',
     'age':age??'NO',
     'notes':notes??'No',
-      result:result,
-      image:image,
+      'result':result,
+      'image':image,
     };
   }
 }

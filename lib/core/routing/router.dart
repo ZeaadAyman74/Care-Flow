@@ -1,6 +1,8 @@
 import 'package:care_flow/choose_role/business_logic/choose_role_cubit.dart';
 import 'package:care_flow/choose_role/choose_role.dart';
+import 'package:care_flow/core/di_container.dart';
 import 'package:care_flow/core/notifications/first_screen.dart';
+import 'package:care_flow/core/notifications/second_page.dart';
 import 'package:care_flow/core/routing/routes.dart';
 import 'package:care_flow/doctor/diagnoses/business_logic/diagnoses_cubit.dart';
 import 'package:care_flow/doctor/layout/business_logic/new_layout_cubit/new_layout_cubit.dart';
@@ -9,6 +11,7 @@ import 'package:care_flow/doctor/layout/view/screens/new_layout.dart';
 import 'package:care_flow/doctor/login/business_logic/home_login_cubit/home_login_cubit.dart';
 import 'package:care_flow/doctor/login/view/screens/home_login.dart';
 import 'package:care_flow/doctor/lung_diseases/view/lung_screen.dart';
+import 'package:care_flow/doctor/my_private_diagnoses/view/private_diagnosis_details.dart';
 import 'package:care_flow/doctor/prediction/business_logic/prediction_cubit.dart';
 import 'package:care_flow/doctor/prediction/view/screens/complete_photo_screen.dart';
 import 'package:care_flow/doctor/prediction/view/screens/set_photo_screen.dart';
@@ -38,11 +41,12 @@ import 'package:care_flow/patient/responses/view/screens/response_details_screen
 import 'package:care_flow/patient/send_request/business_logic/send_request_cubit.dart';
 import 'package:care_flow/patient/send_request/view/screens/send_request_screen.dart';
 import 'package:care_flow/splash.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class AppRouter {
-  AppRouter();
+ const AppRouter();
 
   Route? generateRoute(RouteSettings settings) {
     switch (settings.name) {
@@ -50,29 +54,34 @@ class AppRouter {
         return CustomPageRouter(const SplashScreen());
       case Routes.chooseRole:
         return _getPageRoute(BlocProvider(
-            create: (context) => ChooseRoleCubit(),
+            create: (context) => sl<ChooseRoleCubit>(),
             child: const ChooseRoleScreen()));
       case Routes.loginRoute:
         return _getPageRoute(BlocProvider<HomeLoginCubit>(
-            create: (context) => HomeLoginCubit(),
+            create: (context) => sl<HomeLoginCubit>(),
             child: const HomeLoginScreen()));
       case Routes.newLayout:
-        return _getPageRoute(BlocProvider(create: (context) => NewLayoutCubit(),child: const NewLayout(),));
+        return _getPageRoute(BlocProvider(
+          create: (context) => sl<NewLayoutCubit>(),
+          child: const NewLayout(),
+        ));
       case Routes.layoutRoute:
         return _getPageRoute(MultiBlocProvider(providers: [
           // BlocProvider(
           //   create: (context) => LayoutCubit(),
           // ),
-          BlocProvider(create: (context) => DiagnosesCubit(),),
           BlocProvider(
-            create: (context) => ReceiveRequestsCubit(),
+            create: (context) => sl<DiagnosesCubit>(),
+          ),
+          BlocProvider(
+            create: (context) => sl<ReceiveRequestsCubit>(),
           ),
         ], child: const LayoutScreen()));
       case Routes.lungRoute:
         return _getPageRoute(const LungScreen());
       case Routes.predictionRoute:
         return _getPageRoute(BlocProvider(
-          create: (context) => PredictionCubit(),
+          create: (context) => sl<PredictionCubit>(),
           child: const CoronaDetectionScreen(),
         ));
       case Routes.completePhotoRoute:
@@ -81,13 +90,13 @@ class AppRouter {
       case Routes.savePrivateResult:
         var arg = settings.arguments as Map;
         return _getPageRoute(BlocProvider(
-          create: (context) => PrivateDiagnosisCubit(),
+          create: (context) => sl<PrivateDiagnosisCubit>(),
           child: SaveResultScreen(result: arg['result'], image: arg['image']),
         ));
       case Routes.requestDetailsRoute:
         var arg = settings.arguments as Map;
         return _getPageRoute(BlocProvider(
-          create: (context) => RequestDetailsCubit(),
+          create: (context) => sl<RequestDetailsCubit>(),
           child: RequestDetailsScreen(
             request: arg['request'],
           ),
@@ -98,39 +107,43 @@ class AppRouter {
       case Routes.sendDiagnosisRoute:
         var arg = settings.arguments as Map;
         return _getPageRoute(BlocProvider(
-          create: (context) => SendDiagnosisCubit(),
+          create: (context) => sl<SendDiagnosisCubit>(),
           child: DiagnosisScreen(
               request: arg['request'], coronaResult: arg['coronaResult']),
         ));
+      case Routes.privateDiagnosisRoute:
+        var model=settings.arguments as Map<String,dynamic>;
+        return _getPageRoute(PrivateDiagnosisDetails(model: model['model']));
 
-        ////////////////////////////////////////////////////////////////////////////////////////////////////////////
+      ////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
       case Routes.patientLoginRoute:
         return _getPageRoute(BlocProvider(
-          create: (context) => PatientHomeLoginCubit(),
+          create: (context) => sl<PatientHomeLoginCubit>(),
           child: const PatientHomeLogin(),
         ));
       case Routes.patientLayoutRoute:
         return _getPageRoute(MultiBlocProvider(providers: [
           BlocProvider(
-            create: (context) => PatientLayoutCubit(),
+            create: (context) => sl<PatientLayoutCubit>(),
           ),
           BlocProvider(
-            create: (context) => ResponsesCubit(),
+            create: (context) => sl<ResponsesCubit>(),
           ),
           BlocProvider(
-            create: (context) => RequestsCubit(),
+            create: (context) => sl<RequestsCubit>(),
           ),
         ], child: const PatientLayoutScreen()));
       case Routes.chooseDoctorRoute:
         var arg = settings.arguments as Map;
         return _getPageRoute(BlocProvider(
-          create: (context) => ChooseDoctorCubit(),
+          create: (context) => sl<ChooseDoctorCubit>(),
           child: ChooseDoctorScreen(specialize: arg['specialize']),
         ));
       case Routes.sendRequestRoute:
         var arg = settings.arguments as Map;
         return _getPageRoute(BlocProvider(
-          create: (context) => SendRequestCubit(),
+          create: (context) => sl<SendRequestCubit>(),
           child: SendRequestScreen(
             doctorName: arg['doctorName'],
             doctorId: arg['doctorId'],
@@ -143,7 +156,7 @@ class AppRouter {
           response: arg['response'],
         ));
       case Routes.sentRequestDetailsRoute:
-        var arg=settings.arguments as Map;
+        var arg = settings.arguments as Map;
         return _getPageRoute(SentRequestDetails(request: arg['request']));
       case Routes.diagnosisRoute:
         return _getPageRoute(const PatientHomeScreen());
@@ -158,7 +171,9 @@ class AppRouter {
 
       case Routes.first:
         return _getPageRoute(const FirstScreen());
-
+      case Routes.second:
+var message=settings.arguments as RemoteMessage;
+        return _getPageRoute(  SecondPage(message: message,));
     }
     return null;
   }

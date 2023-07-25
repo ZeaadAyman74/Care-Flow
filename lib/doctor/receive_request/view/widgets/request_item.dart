@@ -1,4 +1,5 @@
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:care_flow/core/di_container.dart';
 import 'package:care_flow/core/utils/colors.dart';
 import 'package:care_flow/core/utils/images.dart';
 import 'package:care_flow/doctor/receive_request/business_logic/receive_request_cubit/receive_requests_cubit.dart';
@@ -21,7 +22,7 @@ class RequestItem extends StatelessWidget {
         padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 10.h),
         decoration: BoxDecoration(
           border: Border.all(
-            color: request.read ? Colors.grey : MyColors.primary,
+            color: request.read ? Colors.grey : sl<MyColors>().primary,
             width: request.read ? 1 : 2,
           ),
           borderRadius: BorderRadius.all(Radius.circular(15.r)),
@@ -31,7 +32,7 @@ class RequestItem extends StatelessWidget {
           children: [
             CircleAvatar(
               radius: 40.r,
-              backgroundImage: const AssetImage(AppImages.patient),
+              backgroundImage:  AssetImage(sl<AppImages>().patient),
             ),
             SizedBox(
               width: 8.w,

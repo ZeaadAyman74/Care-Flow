@@ -1,3 +1,4 @@
+import 'package:care_flow/core/di_container.dart';
 import 'package:care_flow/core/utils/snack_bar.dart';
 import 'package:care_flow/patient/choose_doctor/business_logic/choose_doctor_cubit.dart';
 import 'package:care_flow/patient/choose_doctor/view/widgets/doctors_list.dart';
@@ -30,7 +31,7 @@ class _ChooseDoctorScreenState extends State<ChooseDoctorScreen> {
     return BlocListener<ChooseDoctorCubit,ChooseDoctorState>(
       listener: (context, state) {
         if(state is GetDoctorsError){
-          AppFunctions.showMySnackBar(context,state.error);
+          sl<AppFunctions>().showMySnackBar(context,state.error);
         }
       },
       child: Scaffold(

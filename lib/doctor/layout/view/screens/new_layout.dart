@@ -1,3 +1,4 @@
+import 'package:care_flow/core/di_container.dart';
 import 'package:care_flow/core/utils/app_extensions.dart';
 import 'package:care_flow/core/utils/colors.dart';
 import 'package:care_flow/doctor/layout/business_logic/new_layout_cubit/new_layout_cubit.dart';
@@ -17,11 +18,11 @@ class _NewLayoutState extends State<NewLayout> {
   @override
   Widget build(BuildContext context) {
     return  Container(
-        color: MyColors.nearlyWhite,
+        color: sl<MyColors>().nearlyWhite,
         child: SafeArea(
           bottom: false,
           child: Scaffold(
-              backgroundColor: MyColors.nearlyWhite,
+              backgroundColor: sl<MyColors>().nearlyWhite,
               body: BlocBuilder<NewLayoutCubit, NewLayoutState>(
                   builder: ((context, state) {
                     return DrawerUserController(

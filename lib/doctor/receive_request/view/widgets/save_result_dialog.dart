@@ -1,4 +1,5 @@
 import 'package:care_flow/core/routing/routes.dart';
+import 'package:care_flow/core/di_container.dart';
 import 'package:care_flow/core/utils/app_extensions.dart';
 import 'package:care_flow/core/utils/colors.dart';
 import 'package:care_flow/doctor/prediction/view/widgets/common_buttons.dart';
@@ -27,7 +28,7 @@ class SaveResultDialog extends StatelessWidget {
                 TextSpan(
                     text: 'The Result is: ',
                     style: TextStyle(
-                        color: MyColors.black,
+                        color: sl<MyColors>().black,
                         fontSize: 22.sp,
                         fontWeight: FontWeight.w600)),
                 TextSpan(
@@ -39,7 +40,7 @@ class SaveResultDialog extends StatelessWidget {
                         fontWeight: FontWeight.w600))
               ])),
           SizedBox(height: 40.h,),
-          CommonButtons(textLabel: 'Continue', textColor: Colors.white, backgroundColor: MyColors.primary, onTap: (){
+          CommonButtons(textLabel: 'Continue', textColor: Colors.white, backgroundColor: sl<MyColors>().primary, onTap: (){
             context.pop();
            context.push(Routes.sendDiagnosisRoute,arg: {'request':request,'coronaResult':result});
           }),
