@@ -1,6 +1,6 @@
 import 'package:care_flow/core/routing/routes.dart';
 import 'package:care_flow/core/utils/app_extensions.dart';
-import 'package:care_flow/doctor/send_diagnosis/models/response_model.dart';
+import 'package:care_flow/patient/responses/models/response_model.dart';
 import 'package:care_flow/patient/responses/view/widgets/response_item.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -15,7 +15,7 @@ final List<ResponseModel>responses;
         itemBuilder: (context, index) => GestureDetector(
           onTap: () {
             // responses[index].isRead=true;
-            context.push(Routes.diagnosisDetailsRoute,arg: {'response':responses[index]});
+            context.push(Routes.responseDetailsRoute,arg: {'response':responses[index]});
             // ReceiveRequestsCubit.get(context).readRequest(requests[index].requestId!);
           },
           child: ResponseItem(response: responses[index],)

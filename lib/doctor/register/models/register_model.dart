@@ -8,6 +8,7 @@ class DoctorModel {
   final String about;
   final String uId;
   final String? profileImage;
+  final String? deviceToken;
 
   DoctorModel({
     required this.name,
@@ -19,6 +20,7 @@ class DoctorModel {
     required this.about,
     required this.uId,
     this.profileImage,
+    this.deviceToken,
   });
 
   Map<String, dynamic> toJson() {
@@ -32,6 +34,7 @@ class DoctorModel {
       'about':about,
       'uId':uId,
       'profile image':profileImage,
+      'device token':deviceToken,
     };
   }
 
@@ -46,6 +49,7 @@ class DoctorModel {
       about: json['about'],
       uId:json['uId'],
       profileImage: json['profile image'],
+      deviceToken: json['device token'],
     );
   }
 }

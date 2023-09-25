@@ -1,16 +1,16 @@
 import 'dart:io';
 import 'package:care_flow/core/di_container.dart';
+import 'package:care_flow/core/fcm/fcm.dart';
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 import 'package:care_flow/core/utils/strings.dart';
 import 'package:care_flow/patient/register/models/patient_model.dart';
-import 'package:care_flow/patient/send_request/models/request_model.dart';
+import 'package:care_flow/patient/send_request/models/request_details_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
-
 part 'send_request_state.dart';
 
 class SendRequestCubit extends Cubit<SendRequestState> {
@@ -43,9 +43,10 @@ FirebaseFirestore firebase=FirebaseFirestore.instance;
     required String imageUrl,
     required String doctorName,
     required String doctorSpecialize,
+    required String doctorDeviceToken,
   }) async {
     try {
-      RequestModel request = RequestModel(
+      RequestDetailsModel request = RequestDetailsModel(
         name: name,
         age: age,
         phone: phone,
@@ -56,6 +57,7 @@ FirebaseFirestore firebase=FirebaseFirestore.instance;
         patientId: sl<AppStrings>().uId!,
         doctorSpecialize:doctorSpecialize,
         doctorName: doctorName,
+        time: Timestamp.now(),
         read: false,
         finished: false,
       );
@@ -65,6 +67,11 @@ FirebaseFirestore firebase=FirebaseFirestore.instance;
           .collection('requests')
           .doc();
    await doc.set(request.toJson(doc.id));
+   await sl<FirebaseApi>().pushNotification(token: doctorDeviceToken, data:request.toJson(doc.id), notification: {
+     'title':name,
+     'body':'Diagnostic Request',
+     'image':'https://scontent.fcai20-3.fna.fbcdn.net/v/t39.30808-6/340112952_142220165469022_7534464729291194521_n.jpg?_nc_cat=105&ccb=1-7&_nc_sid=09cbfe&_nc_ohc=81D7rxC8O6gAX8Q_p6m&_nc_ht=scontent.fcai20-3.fna&oh=00_AfDhYa-KGWsg_QhfqbrqlNAYEYt0UZcO9dC7-tU2B7MMew&oe=64C8A366'
+   });
    var patientDoc= firebase.collection('patients').doc(sl<AppStrings>().uId).collection('requests').doc();
    await patientDoc.set(request.toJson(patientDoc.id));
     } catch (error) {
@@ -78,6 +85,7 @@ FirebaseFirestore firebase=FirebaseFirestore.instance;
     required String doctorName,
     required String doctorSpecialize,
     required String notes,
+    required String doctorDeviceToken,
   }) async {
     try {
       emit(SendRequestLoad());
@@ -97,7 +105,8 @@ FirebaseFirestore firebase=FirebaseFirestore.instance;
         notes: notes,
         imageUrl: imageUrl,
        doctorName:doctorName,
-       doctorSpecialize: doctorSpecialize
+       doctorSpecialize: doctorSpecialize,
+       doctorDeviceToken: doctorDeviceToken,
       );
       emit(SendRequestSuccess());
     } catch (error) {

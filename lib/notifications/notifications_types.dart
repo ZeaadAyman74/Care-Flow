@@ -1,0 +1,4 @@
+enum NotificationsTypes{
+  request,
+  response,
+}

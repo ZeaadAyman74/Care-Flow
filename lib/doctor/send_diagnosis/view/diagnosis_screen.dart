@@ -4,11 +4,13 @@ import 'package:care_flow/core/utils/app_extensions.dart';
 import 'package:care_flow/core/utils/colors.dart';
 import 'package:care_flow/core/utils/my_inums.dart';
 import 'package:care_flow/core/utils/snack_bar.dart';
-import 'package:care_flow/doctor/layout/business_logic/layout_cubit.dart';
+import 'package:care_flow/doctor/layout/business_logic/home_layout_cubit/home_layout_cubit.dart';
+import 'package:care_flow/doctor/layout/business_logic/user_cubit/user_cubit.dart';
+import 'package:care_flow/doctor/layout/business_logic/user_cubit/user_cubit.dart';
 import 'package:care_flow/doctor/prediction/view/widgets/common_buttons.dart';
 import 'package:care_flow/doctor/private_diagnosis/view/widgets/info_text_field.dart';
 import 'package:care_flow/doctor/send_diagnosis/business_logic/send_diagnosis_cubit.dart';
-import 'package:care_flow/patient/send_request/models/request_model.dart';
+import 'package:care_flow/patient/send_request/models/request_details_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -17,7 +19,7 @@ class DiagnosisScreen extends StatefulWidget {
   const DiagnosisScreen(
       {Key? key, required this.request, required this.coronaResult})
       : super(key: key);
-  final RequestModel request;
+  final RequestDetailsModel request;
   final String? coronaResult;
 
   @override
@@ -120,9 +122,9 @@ class _DiagnosisScreenState extends State<DiagnosisScreen> {
                                   tips: tips,
                                   medicine: medicine,
                                   coronaCheck: widget.coronaResult,
-                                  doctorName: LayoutCubit.get(context).currentDoctor!.name,
+                                  doctorName: UserCubit.get(context).currentDoctor!.name,
                                   currentRequest: widget.request,
-                                  doctorImage: LayoutCubit.get(context).currentDoctor!.profileImage,
+                                  doctorImage: UserCubit.get(context).currentDoctor!.profileImage,
                                 );
                               }
                             },

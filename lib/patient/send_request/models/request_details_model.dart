@@ -1,4 +1,6 @@
-class RequestModel {
+import 'package:cloud_firestore/cloud_firestore.dart';
+
+class RequestDetailsModel {
   final String name;
   final String email;
   final String phone;
@@ -10,10 +12,11 @@ class RequestModel {
   final String? requestId;
   final String doctorName;
   final String doctorSpecialize;
+  final Timestamp time;
    bool read;
    bool finished;
 
-  RequestModel({
+  RequestDetailsModel({
     required this.name,
     required this.age,
     required this.phone,
@@ -26,11 +29,12 @@ class RequestModel {
     required this.doctorSpecialize,
     required this.read,
     required this.finished,
+    required this.time,
     this.requestId,
   });
 
-  factory RequestModel.fromJson(Map<String, dynamic> json) {
-    return RequestModel(
+  factory RequestDetailsModel.fromJson(Map<String, dynamic> json) {
+    return RequestDetailsModel(
       name: json['name'],
       age: json['age'],
       phone: json['phone'],
@@ -44,6 +48,7 @@ class RequestModel {
       doctorSpecialize: json['doctorSpecialize'],
       read: json['read'],
       finished: json['finished'],
+      time:json['time'],
     );
   }
 
@@ -62,6 +67,7 @@ class RequestModel {
       'read':read,
       'requestId':id,
       'finished':finished,
+      'time':time,
     };
   }
 }

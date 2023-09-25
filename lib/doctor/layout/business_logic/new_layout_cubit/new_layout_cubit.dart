@@ -1,7 +1,8 @@
 import 'package:care_flow/core/di_container.dart';
-import 'package:care_flow/doctor/diagnoses/business_logic/diagnoses_cubit.dart';
+import 'package:care_flow/doctor/diagnoses/business_logic/diagnoses_cubit/diagnoses_cubit.dart';
 import 'package:care_flow/doctor/edit_profile/business_logic/edit_doctor_profile_cubit.dart';
 import 'package:care_flow/doctor/edit_profile/view/screens/edit_doctor_screen.dart';
+import 'package:care_flow/doctor/layout/business_logic/home_layout_cubit/home_layout_cubit.dart';
 import 'package:care_flow/doctor/layout/view/screens/layout_screen.dart';
 import 'package:care_flow/doctor/layout/view/widgets/drawer_index.dart';
 import 'package:care_flow/doctor/my_private_diagnoses/business_logic/my_private_diagnoses_cubit.dart';
@@ -25,7 +26,7 @@ class NewLayoutCubit extends Cubit<NewLayoutState> {
     BlocProvider(
       create: (context) => ReceiveRequestsCubit(),
     ),
-  ], child: const LayoutScreen());
+  ], child: BlocProvider(create: (context) => HomeLayoutCubit(),child: const LayoutScreen()));
 
   Future<void> changeDrawerIndex(DrawerIndex index) async {
     if (currentDrawerIndex != index) {
@@ -39,6 +40,7 @@ class NewLayoutCubit extends Cubit<NewLayoutState> {
             BlocProvider(
               create: (context) => ReceiveRequestsCubit(),
             ),
+            BlocProvider(create: (context) => HomeLayoutCubit(),),
           ], child: const LayoutScreen());
           emit(DrawerIndexChanged());
           break;
@@ -73,4 +75,5 @@ class NewLayoutCubit extends Cubit<NewLayoutState> {
       }
     }
   }
+
 }

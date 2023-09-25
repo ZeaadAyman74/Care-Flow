@@ -17,3 +17,5 @@ class ReceiveRequestError extends ReceiveRequestsState {
 class ReadRequest extends ReceiveRequestsState {}
 
 class MarkFinishSuccess extends ReceiveRequestLoad {}
+
+class LoadMoreData extends ReceiveRequestsState {}

@@ -1,4 +1,6 @@
-class ResponseModel {
+import 'package:cloud_firestore/cloud_firestore.dart';
+
+class ResponseDetailsModel {
   final String tips;
   final String medicine;
   final String? coronaCheck;
@@ -7,13 +9,15 @@ class ResponseModel {
   final int patientAge;
   final String patientEmail;
   final String patientPhone;
-  bool isRead;
   final String xray;
   final String patientNotes;
   final String prevDiseases;
   final String? doctorImage;
+  final Timestamp time;
+  final String responseId;
+  bool isRead;
 
-  ResponseModel({
+  ResponseDetailsModel({
     required this.medicine,
     required this.tips,
     required this.coronaCheck,
@@ -26,11 +30,13 @@ class ResponseModel {
     required this.prevDiseases,
     required this.patientNotes,
     required this.xray,
-    required this.doctorImage
+    required this.doctorImage,
+    required this.time,
+    required this.responseId
   });
 
-  factory ResponseModel.fromJson(Map<String, dynamic> json) {
-    return ResponseModel(
+  factory ResponseDetailsModel.fromJson(Map<String, dynamic> json) {
+    return ResponseDetailsModel(
       medicine: json['medicine'],
       tips: json['tips'],
       coronaCheck: json['Corona Check'],
@@ -43,7 +49,9 @@ class ResponseModel {
       patientNotes: json['notes'],
       xray: json['xray'],
       prevDiseases: json['prev diseases'],
-      doctorImage: json['doctorImage']
+      doctorImage: json['doctorImage'],
+      time: json['time'],
+      responseId: json['responseId']
     );
   }
 
@@ -62,6 +70,8 @@ class ResponseModel {
       'xray': xray,
       'notes': patientNotes,
       'doctorImage':doctorImage,
+      'time':time,
+      'responseId':responseId,
     };
   }
 }

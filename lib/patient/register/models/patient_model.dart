@@ -5,14 +5,16 @@ class PatientModel {
   final int age;
   final String gender;
   final String nationalId;
+  final String? deviceToken;
 
-  PatientModel({
+  const PatientModel({
     required this.name,
     required this.email,
     required this.phone,
     required this.age,
     required this.gender,
     required this.nationalId,
+    this.deviceToken,
   });
 
   Map<String, dynamic> toJson() {
@@ -23,6 +25,7 @@ class PatientModel {
       'nId': nationalId,
       'gender': gender,
       'age': age,
+      'device token':deviceToken,
     };
   }
 
@@ -34,6 +37,7 @@ class PatientModel {
       nationalId: json['nId'],
       age: json['age'],
       gender: json['gender'],
+      deviceToken: json['device token'],
     );
   }
 }

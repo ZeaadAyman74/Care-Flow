@@ -5,6 +5,15 @@ abstract class RequestDetailsState {}
 
 class RequestDetailsInitial extends RequestDetailsState {}
 
+class GetRequestDetailsLoad extends RequestDetailsState {}
+
+class GetRequestDetailsSuccess extends RequestDetailsState {}
+
+class GetRequestDetailsError extends RequestDetailsState {
+  final String error;
+  GetRequestDetailsError(this.error);
+}
+
 class LoadModel extends RequestDetailsState {}
 
 class LoadModelSuccess extends RequestDetailsState {}

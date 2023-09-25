@@ -8,9 +8,9 @@ import 'package:care_flow/core/utils/colors.dart';
 import 'package:care_flow/core/utils/images.dart';
 import 'package:care_flow/core/utils/snack_bar.dart';
 import 'package:care_flow/core/utils/strings.dart';
-import 'package:care_flow/doctor/diagnoses/business_logic/diagnoses_cubit.dart';
+import 'package:care_flow/doctor/diagnoses/business_logic/diagnoses_cubit/diagnoses_cubit.dart';
 import 'package:care_flow/doctor/edit_profile/business_logic/edit_doctor_profile_cubit.dart';
-import 'package:care_flow/doctor/layout/business_logic/layout_cubit.dart';
+import 'package:care_flow/doctor/layout/business_logic/home_layout_cubit/home_layout_cubit.dart';
 import 'package:care_flow/doctor/layout/business_logic/new_layout_cubit/new_layout_cubit.dart';
 import 'package:care_flow/doctor/login/business_logic/home_login_cubit/home_login_cubit.dart';
 import 'package:care_flow/doctor/login/business_logic/login_cubit/login_cubit.dart';
@@ -26,8 +26,8 @@ import 'package:care_flow/patient/layout/business_logic/patient_layout_cubit.dar
 import 'package:care_flow/patient/login/business_logic/patient_home_login_cubit/patient_home_login_cubit.dart';
 import 'package:care_flow/patient/login/business_logic/patient_login_cubit/patient_login_cubit.dart';
 import 'package:care_flow/patient/register/business_logic/patient_register_cubit.dart';
-import 'package:care_flow/patient/requests/business_logic/requests_cubit.dart';
-import 'package:care_flow/patient/responses/business_logic/responses_cubit.dart';
+import 'package:care_flow/patient/requests/business_logic/requests/requests_cubit.dart';
+import 'package:care_flow/patient/responses/business_logic/responses_cubit/responses_cubit.dart';
 import 'package:care_flow/patient/send_request/business_logic/send_request_cubit.dart';
 import 'package:get_it/get_it.dart';
 
@@ -48,7 +48,7 @@ class ServiceLocator {
     sl.registerFactory(() => ChooseRoleCubit());
     sl.registerFactory(() => DiagnosesCubit());
     sl.registerFactory(() => EditDoctorProfileCubit());
-    sl.registerFactory(() => LayoutCubit());
+    sl.registerFactory(() => HomeLayoutCubit());
     sl.registerFactory(() => NewLayoutCubit());
     sl.registerFactory(() => HomeLoginCubit());
     sl.registerFactory(() => LoginCubit());

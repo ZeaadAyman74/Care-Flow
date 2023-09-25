@@ -24,7 +24,7 @@ final String email;
                   ]
               ),
               maxLines: 2,
-              minFontSize: 18.sp,
+              // minFontSize: 18.sp,
               textAlign: TextAlign.start,
             ),
             SizedBox(height: 5.h,),
@@ -36,7 +36,7 @@ final String email;
                   ]
               ),
               maxLines: 2,
-              minFontSize: 18.sp,
+              // minFontSize: 18.sp,
               textAlign: TextAlign.start,
             ),
             SizedBox(height: 5.h,),
@@ -48,7 +48,7 @@ final String email;
                   ]
               ),
               maxLines: 2,
-              minFontSize: 18.sp,
+              // minFontSize: 18.sp,
               textAlign: TextAlign.start,
             ),
             SizedBox(height: 5.h,),
@@ -60,7 +60,7 @@ final String email;
                   ]
               ),
               maxLines: 2,
-              minFontSize: 18.sp,
+              // minFontSize: 18.sp,
               textAlign: TextAlign.start,
             ),
         Padding(padding: EdgeInsets.symmetric(horizontal: 10.w,vertical: 20.h),child: const DottedLine()),

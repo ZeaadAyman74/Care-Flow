@@ -2,6 +2,7 @@ import 'package:care_flow/core/di_container.dart';
 import 'package:care_flow/core/utils/app_extensions.dart';
 import 'package:care_flow/core/utils/colors.dart';
 import 'package:care_flow/doctor/layout/business_logic/new_layout_cubit/new_layout_cubit.dart';
+import 'package:care_flow/doctor/layout/business_logic/user_cubit/user_cubit.dart';
 import 'package:care_flow/doctor/layout/view/widgets/drawer_index.dart';
 import 'package:care_flow/doctor/layout/view/widgets/drawer_user_controller.dart';
 import 'package:flutter/material.dart';
@@ -16,6 +17,12 @@ class NewLayout extends StatefulWidget {
 
 class _NewLayoutState extends State<NewLayout> {
   @override
+  Future<void> didChangeDependencies() async {
+await UserCubit.get(context).getCurrentDoctor();
+super.didChangeDependencies();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return  Container(
         color: sl<MyColors>().nearlyWhite,
@@ -25,12 +32,18 @@ class _NewLayoutState extends State<NewLayout> {
               backgroundColor: sl<MyColors>().nearlyWhite,
               body: BlocBuilder<NewLayoutCubit, NewLayoutState>(
                   builder: ((context, state) {
-                    return DrawerUserController(
-                      screenIndex: NewLayoutCubit.get(context).currentDrawerIndex,
-                      drawerWidth: context.width * 0.75,
-                      onDrawerCall: (DrawerIndex drawerIndex) => NewLayoutCubit.get(context).changeDrawerIndex(drawerIndex),
-                      screenView:NewLayoutCubit.get(context).screenView,
-                    );
+                    return BlocBuilder<UserCubit,UserState>(builder: (context, state) {
+                      if(state is GetCurrentDoctor){
+                        return DrawerUserController(
+                          screenIndex: NewLayoutCubit.get(context).currentDrawerIndex,
+                          drawerWidth: context.width * 0.75,
+                          onDrawerCall: (DrawerIndex drawerIndex) => NewLayoutCubit.get(context).changeDrawerIndex(drawerIndex),
+                          screenView:NewLayoutCubit.get(context).screenView,
+                        );
+                      }else {
+                        return const Center(child: CircularProgressIndicator(),);
+                      }
+                    },);
                   }))),
         ));
   }

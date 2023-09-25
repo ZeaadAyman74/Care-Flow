@@ -1,6 +1,6 @@
 import 'package:care_flow/core/di_container.dart';
 import 'package:care_flow/core/utils/colors.dart';
-import 'package:care_flow/doctor/layout/business_logic/layout_cubit.dart';
+import 'package:care_flow/doctor/layout/business_logic/home_layout_cubit/home_layout_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -15,15 +15,6 @@ class LayoutScreen extends StatefulWidget {
 }
 
 class _LayoutScreenState extends State<LayoutScreen> {
-  void getDoctorData() async {
-    LayoutCubit.get(context).getCurrentDoctor();
-  }
-
-  @override
-  void initState() {
-    getDoctorData();
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -35,10 +26,10 @@ class _LayoutScreenState extends State<LayoutScreen> {
         centerTitle: true,
       ),
       body: Center(
-        child: BlocBuilder<LayoutCubit, LayoutState>(
-          builder: (context, state) => LayoutCubit.get(context)
+        child: BlocBuilder<HomeLayoutCubit, HomeLayoutState>(
+          builder: (context, state) => HomeLayoutCubit.get(context)
               .views
-              .elementAt(LayoutCubit.get(context).selectedIndex),
+              .elementAt(HomeLayoutCubit.get(context).selectedIndex),
         ),
       ),
       bottomNavigationBar: Container(
@@ -62,23 +53,26 @@ class _LayoutScreenState extends State<LayoutScreen> {
             duration: const Duration(milliseconds: 400),
             tabBackgroundColor: Colors.grey[100]!,
             color: sl<MyColors>().black.withOpacity(.5),
-            tabs: const [
+            tabs: [
               GButton(
+                gap: 10.h,
                 icon: FontAwesomeIcons.house,
                 text: 'Home',
               ),
               GButton(
+                gap: 10.h,
                 icon: Icons.question_mark,
                 text: 'Requests',
               ),
               GButton(
+                gap: 10.h,
                 icon: Icons.question_answer,
                 text: 'Responses',
               ),
             ],
-            selectedIndex: LayoutCubit.get(context).selectedIndex,
+            selectedIndex: HomeLayoutCubit.get(context).selectedIndex,
             onTabChange: (index) {
-              LayoutCubit.get(context).changeView(index);
+              HomeLayoutCubit.get(context).changeView(index);
             },
           ),
         ),

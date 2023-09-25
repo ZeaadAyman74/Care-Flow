@@ -13,3 +13,5 @@ class GetRequestsError extends RequestsState {
   final String error;
   GetRequestsError(this.error);
 }
+
+class LoadMoreData extends RequestsState {}

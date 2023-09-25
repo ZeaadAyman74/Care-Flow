@@ -4,23 +4,23 @@ import 'package:care_flow/core/network/dio_helper.dart';
 import 'package:care_flow/core/notifications/notifications.dart';
 import 'package:care_flow/core/routing/routes.dart';
 import 'package:care_flow/main.dart';
+import 'package:care_flow/notifications/notifications_types.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/foundation.dart';
 
-Future<void> handleBackGroundMessage(RemoteMessage message) async {
-  print(message.notification?.title);
-  print(message.notification?.body);
-  print(message.data);
+Future<void> handleBackGroundMessage(RemoteMessage? message) async {
+  if (kDebugMode) {
+    print(message!.data);
+  }
+    if (message == null) return;
+    if(message.data['type']==NotificationsTypes.request) {
+      navigatorKey.currentState?.pushNamed(Routes.requestDetailsRoute, arguments: message.data['requestId']);
+    }
+
 }
 
 class FirebaseApi {
   final _firebaseMessaging = FirebaseMessaging.instance;
-
-  Future<void>refreshToken()async{
-   await _firebaseMessaging.deleteToken();
-  print(await _firebaseMessaging.getToken());
-  }
-
   Future<void> requestPermission() async {
     NotificationSettings settings = await _firebaseMessaging.requestPermission(
       sound: true,
@@ -46,9 +46,15 @@ class FirebaseApi {
       }
     }
   } // this request for IOS & MacOs & Web
+
   Future<String?>getDeviceToken()async{
     return _firebaseMessaging.getToken();
   }
+  Future<String?>refreshToken()async{
+    await _firebaseMessaging.deleteToken();
+    return await _firebaseMessaging.getToken();
+  }
+
   Future<void> fcmSettings() async {
     await FirebaseMessaging.instance.setForegroundNotificationPresentationOptions(
       alert: true,
@@ -71,17 +77,32 @@ class FirebaseApi {
 
   Future<void> initNotifications() async {
     await requestPermission();
-    final fcmToken =await getDeviceToken();
-    debugPrint(fcmToken);
-    // await updateDeviceToken(fcmToken!);
     await fcmSettings();
     await sl<NotificationsApi>().init();
   }
 
   void handleMessage(RemoteMessage? message) async {
     if (message == null) return;
-    navigatorKey.currentState?.pushNamed(Routes.second, arguments: message);
+      navigatorKey.currentState?.pushNamed(Routes.requestDetailsRoute, arguments: {'id':message.data['requestId']});
   }   // for navigation to the required screen with required data if found
+
+
+Future<void>pushNotification({required String token,required Map<String,dynamic>data,required Map<String,dynamic>notification})async{
+ try{
+   await  sl<DioHelper>().postData(path: 'https://fcm.googleapis.com/fcm/send', data:
+   {
+     'priority':'high',
+     'data':data,
+     'notification':notification,
+     'to':token,
+     'content-available':true,
+   });
+ }catch(error){
+   if (kDebugMode) {
+     print(error.toString());
+   }
+ }
+}
 
 
 // Future<void>updateDeviceToken(String token)async{
@@ -94,27 +115,4 @@ class FirebaseApi {
 //     'tokens': FieldValue.arrayUnion([token]),
 //   });
 // }
-
-Future<void>pushNotification()async{
-    final String? token=await getDeviceToken();
- try{
-   await  sl<DioHelper>().postData(path: 'https://fcm.googleapis.com/fcm/send', data:
-   {
-     'priority':'high',
-     'data':{
-       'click_action':'FLUTTER_NOTIFICATION_CLICK',
-       'status':'done',
-       'body':'Flutttttttter',
-       'title':'Hellooo',
-     },
-     'notification':{
-       'body':'Flutttttttter',
-       'title':'Hellooo',
-     },
-     'to':token,
-   });
- }catch(error){
-   print(error.toString());
- }
-}
 }

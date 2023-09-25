@@ -15,7 +15,7 @@ class DoctorItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () => context.push(Routes.sendRequestRoute,
-          arg: {'doctorName': doctor.name, 'doctorId': doctor.uId,'doctorSpecialize':doctor.specialize}),
+          arg: {'doctorName': doctor.name, 'doctorId': doctor.uId,'doctorSpecialize':doctor.specialize,'doctorDeviceToken':doctor.deviceToken}),
       child: Container(
         margin: EdgeInsets.symmetric(horizontal: 10.w),
         padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 10.h),

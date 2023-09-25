@@ -1,3 +1,8 @@
+import 'dart:io';
+
+import 'package:care_flow/core/di_container.dart';
+import 'package:care_flow/core/fcm/fcm.dart';
+import 'package:care_flow/core/utils/strings.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -30,21 +35,44 @@ class PatientLoginCubit extends Cubit<PatientLoginState> {
       await FirebaseAuth.instance
           .signInWithEmailAndPassword(email: email, password: password)
           .then((loginUser) async {
-        var userData=await FirebaseFirestore.instance.collection('patients').doc(loginUser.user!.uid).get();
-        if(userData.exists){
-          emit(PatientLoginSuccess());
-        }else{
+        var userData = await FirebaseFirestore.instance
+            .collection('patients')
+            .doc(loginUser.user!.uid)
+            .get();
+        if (userData.exists) {
+          final String? deviceToken = await sl<FirebaseApi>().refreshToken();
+          if (deviceToken == null) {
+            emit(PatientLoginError(sl<AppStrings>().errorMessage));
+          } else {
+            await _updatePatientDeviceToken(deviceToken).then((value) {
+              emit(PatientLoginSuccess());
+            });
+          }
+        } else {
+          await FirebaseAuth.instance.signOut();
           emit(PatientLoginError('Email or Password are wrong'));
         }
       });
     } on FirebaseAuthException catch (error) {
-      if (error.code == 'user-not-found') {
-        emit(PatientLoginError(error.toString()));
-      } else if (error.code == 'wrong-password') {
-        emit(PatientLoginError(error.toString()));
-      }
-    } catch (error) {
       emit(PatientLoginError(error.toString()));
+    } catch (error) {
+      if (error is SocketException) {
+        emit(PatientLoginError(sl<AppStrings>().checkInternet));
+      } else {
+        emit(PatientLoginError(sl<AppStrings>().errorMessage));
+      }
     }
   }
+
+  Future<void> _updatePatientDeviceToken(String token) async {
+    try {
+      await FirebaseFirestore.instance
+          .collection('patients')
+          .doc(FirebaseAuth.instance.currentUser!.uid)
+          .update({'device token': token});
+    } catch (error) {
+      emit(PatientLoginError(sl<AppStrings>().errorMessage));
+    }
+  }
+
 }

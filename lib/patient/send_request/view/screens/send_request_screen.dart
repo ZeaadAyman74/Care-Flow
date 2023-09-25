@@ -14,11 +14,12 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class SendRequestScreen extends StatefulWidget {
   const SendRequestScreen(
-      {Key? key, required this.doctorName, required this.doctorId,required this.doctorSpecialize})
+      {Key? key, required this.doctorName, required this.doctorId,required this.doctorSpecialize,required this.doctorDeviceToken})
       : super(key: key);
   final String doctorName;
   final String doctorId;
   final String doctorSpecialize;
+  final String doctorDeviceToken;
 
   @override
   State<SendRequestScreen> createState() => _SendRequestScreenState();
@@ -49,10 +50,9 @@ class _SendRequestScreenState extends State<SendRequestScreen> {
             if (state is SendRequestError) {
               sl<AppFunctions>().showMySnackBar(context, state.error);
             } else if (state is SendRequestSuccess) {
-              sl<AppFunctions>().showToast(
-                  message: 'Request sent successfully',
-                  state: ToastStates.success);
               context.pop();
+              sl<AppFunctions>().showToast(message: 'Request sent successfully', state: ToastStates.success);
+
             } else if (state is PickImageSuccess) {
               context.pop();
             }
@@ -192,7 +192,8 @@ class _SendRequestScreenState extends State<SendRequestScreen> {
                                       doctorId: widget.doctorId,
                                       notes: notes,
                                   doctorName: widget.doctorName,
-                                    doctorSpecialize: widget.doctorSpecialize
+                                    doctorSpecialize: widget.doctorSpecialize,
+                                    doctorDeviceToken: widget.doctorDeviceToken,
                                   );
                                 }
                               }

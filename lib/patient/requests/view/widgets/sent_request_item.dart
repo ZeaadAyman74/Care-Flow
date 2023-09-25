@@ -1,13 +1,13 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:care_flow/core/di_container.dart';
 import 'package:care_flow/core/utils/images.dart';
-import 'package:care_flow/patient/send_request/models/request_model.dart';
+import 'package:care_flow/patient/requests/models/sent_request_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class SentRequestItem extends StatelessWidget {
   const SentRequestItem({Key? key,required this.request}) : super(key: key);
-final RequestModel request;
+final SentRequestModel request;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -44,7 +44,7 @@ final RequestModel request;
                   height: 5.h,
                 ),
                 AutoSizeText(
-                  request.doctorSpecialize,
+                  request.specialize,
                   maxLines: 100,
                   softWrap: true,
                   overflow: TextOverflow.ellipsis,
@@ -57,20 +57,20 @@ final RequestModel request;
               ],
             ),
           ),
-          request.finished
-              ? Row(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              SizedBox(
-                width: 5.w,
-              ),
-              const Icon(
-                Icons.check_circle,
-                color: Colors.green,
-              ),
-            ],
-          )
-              : const SizedBox(),
+          // request.finished
+          //     ? Row(
+          //   mainAxisSize: MainAxisSize.min,
+          //   children: [
+          //     SizedBox(
+          //       width: 5.w,
+          //     ),
+          //     const Icon(
+          //       Icons.check_circle,
+          //       color: Colors.green,
+          //     ),
+          //   ],
+          // )
+          //     : const SizedBox(),
         ],
       ),
     );

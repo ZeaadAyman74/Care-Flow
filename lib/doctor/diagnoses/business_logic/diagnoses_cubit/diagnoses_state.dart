@@ -13,3 +13,5 @@ class GetMyDiagnosesError extends DiagnosesState {
  final String error;
  GetMyDiagnosesError(this.error);
 }
+
+class LoadMoreData extends DiagnosesState {}

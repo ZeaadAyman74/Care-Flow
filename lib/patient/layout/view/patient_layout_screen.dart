@@ -28,13 +28,19 @@ class _PatientLayoutScreenState extends State<PatientLayoutScreen> {
         elevation: 5,
         title: const Text('MEDIX-E'),
         centerTitle: true,
-        leading: const Icon(Icons.menu,color: Colors.white,),
+        leading: const Icon(
+          Icons.menu,
+          color: Colors.white,
+        ),
         actions: [
           IconButton(
-            icon: const Icon(Icons.logout_rounded,color: Colors.white,),
-            onPressed: ()async{
+            icon: const Icon(
+              Icons.logout_rounded,
+              color: Colors.white,
+            ),
+            onPressed: () async {
               await FirebaseAuth.instance.signOut().then((value) async {
-                sl<AppStrings>().uId=null;
+                sl<AppStrings>().uId = null;
                 context.pushAndRemove(Routes.chooseRole);
                 await sl<CacheHelper>().removeValue(key: 'uId');
                 await sl<CacheHelper>().removeValue(key: 'role');
@@ -64,25 +70,30 @@ class _PatientLayoutScreenState extends State<PatientLayoutScreen> {
         child: Padding(
           padding: EdgeInsets.symmetric(horizontal: 15.0.w, vertical: 8.h),
           child: GNav(
-            
             rippleColor: Colors.grey[300]!,
             gap: 3,
+curve: Curves.easeIn,
             activeColor: sl<MyColors>().primary,
-            iconSize: 22,
             padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 12.h),
             duration: const Duration(milliseconds: 400),
-            tabBackgroundColor: Colors.grey[100]!,
-            color: sl<MyColors>().black.withOpacity(.5),
-            tabs: const [
+            tabBackgroundColor: Colors.grey[200]!,
+            color: sl<MyColors>().black.withOpacity(.9),
+            tabs: [
               GButton(
+                iconSize: 20.w,
+                gap: 10.h,
                 icon: FontAwesomeIcons.house,
                 text: 'Home',
               ),
               GButton(
+                gap: 10.h,
+                iconSize: 20.w,
                 icon: FontAwesomeIcons.envelope,
                 text: 'Requests',
               ),
               GButton(
+                gap: 10.h,
+                iconSize: 20.w,
                 icon: FontAwesomeIcons.message,
                 text: 'Responses',
               ),

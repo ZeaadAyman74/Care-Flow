@@ -7,7 +7,7 @@ import 'package:care_flow/core/routing/routes.dart';
 import 'package:care_flow/core/di_container.dart';
 import 'package:care_flow/core/utils/strings.dart';
 import 'package:care_flow/core/utils/theme.dart';
-import 'package:care_flow/doctor/layout/business_logic/layout_cubit.dart';
+import 'package:care_flow/doctor/layout/business_logic/user_cubit/user_cubit.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -61,7 +61,7 @@ class _MyAppState extends State<MyApp> {
       builder: (context, child) => MultiBlocProvider(
         providers: [
           BlocProvider(
-            create: (context) => LayoutCubit(),
+            create: (context) => UserCubit(),
           ),
         ],
         child: MaterialApp(

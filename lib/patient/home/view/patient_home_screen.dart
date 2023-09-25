@@ -6,6 +6,7 @@ import 'package:care_flow/doctor/layout/view/widgets/disease_item.dart';
 import 'package:care_flow/patient/home/models/specialization_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 
 class PatientHomeScreen extends StatefulWidget {
   const PatientHomeScreen({Key? key}) : super(key: key);
@@ -36,25 +37,36 @@ class _PatientHomeScreenState extends State<PatientHomeScreen> {
         centerTitle: true,
         elevation: 5,
       ),
-      body: GridView(
-        cacheExtent: 500,
-        padding: EdgeInsets.symmetric(vertical: 10.h, horizontal: 15.w),
-        physics: const BouncingScrollPhysics(),
-        scrollDirection: Axis.vertical,
-        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 2,
-          mainAxisSpacing: 12.0.w,
-          crossAxisSpacing: 12.0.w,
-          childAspectRatio: 1.05,
+      body: AnimationLimiter(
+        child: GridView(
+          padding: EdgeInsets.symmetric(vertical: 10.h, horizontal: 15.w),
+          physics: const BouncingScrollPhysics(),
+          scrollDirection: Axis.vertical,
+          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: 2,
+            mainAxisSpacing: 12.0.w,
+            crossAxisSpacing: 12.0.w,
+            childAspectRatio: 1.05,
+          ),
+          children: List.generate(
+              specializations.length,
+                  (index) => AnimationConfiguration.staggeredGrid(
+                    position: index,
+                    duration: const Duration(milliseconds: 500),
+                    columnCount: 2,
+                    child:SlideAnimation(
+                      horizontalOffset: -100.0,
+                      child: FadeInAnimation(
+                        child: GestureDetector(
+                            onTap: () => context.push(Routes.chooseDoctorRoute,
+                                arg: {'specialize': specializations[index].title}),
+                            child: DiseaseItem(
+                              specialization: specializations[index],
+                            )),
+                      ),
+                    ) ,
+                  )),
         ),
-        children: List.generate(
-            specializations.length,
-                (index) => GestureDetector(
-                onTap: () => context.push(Routes.chooseDoctorRoute,
-                    arg: {'specialize': specializations[index].title}),
-                child: DiseaseItem(
-                  specialization: specializations[index],
-                ))),
       ),
     );
   }

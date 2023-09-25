@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:care_flow/core/di_container.dart';
 import 'package:care_flow/core/fcm/fcm.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
@@ -14,8 +13,7 @@ class NotificationsApi {
 
   Future init() async {
     tz.initializeTimeZones();
-    const androidInitialize =
-        AndroidInitializationSettings('mipmap/ic_launcher');
+    const androidInitialize = AndroidInitializationSettings('mipmap/ic_launcher');
     const iOSInitialize = DarwinInitializationSettings();
     const initializationSettings =
         InitializationSettings(android: androidInitialize, iOS: iOSInitialize);

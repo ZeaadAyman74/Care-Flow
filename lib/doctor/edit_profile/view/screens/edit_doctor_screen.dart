@@ -3,7 +3,7 @@ import 'package:care_flow/core/di_container.dart';
 import 'package:care_flow/core/utils/colors.dart';
 import 'package:care_flow/core/utils/images.dart';
 import 'package:care_flow/doctor/edit_profile/business_logic/edit_doctor_profile_cubit.dart';
-import 'package:care_flow/doctor/layout/business_logic/layout_cubit.dart';
+import 'package:care_flow/doctor/layout/business_logic/user_cubit/user_cubit.dart';
 import 'package:care_flow/doctor/login/view/widgets/login_button.dart';
 import 'package:care_flow/doctor/login/view/widgets/my_text_field.dart';
 import 'package:care_flow/doctor/prediction/view/screens/select_photo_options_screen.dart';
@@ -36,13 +36,13 @@ class _EditDoctorScreenState extends State<EditDoctorScreen> {
   @override
   void initState() {
     nameController = TextEditingController(
-        text: LayoutCubit.get(context).currentDoctor!.name);
+        text: UserCubit.get(context).currentDoctor!.name);
     addressController = TextEditingController(
-        text: LayoutCubit.get(context).currentDoctor!.address);
+        text: UserCubit.get(context).currentDoctor!.address);
     aboutController = TextEditingController(
-        text: LayoutCubit.get(context).currentDoctor!.about);
+        text: UserCubit.get(context).currentDoctor!.about);
     phoneController = TextEditingController(
-        text: LayoutCubit.get(context).currentDoctor!.phone);
+        text: UserCubit.get(context).currentDoctor!.phone);
     super.initState();
   }
 
@@ -72,14 +72,14 @@ class _EditDoctorScreenState extends State<EditDoctorScreen> {
                         alignment: Alignment.bottomRight,
                         children: [
                           EditDoctorProfileCubit.get(context).imageFile==null?
-                          LayoutCubit.get(context).currentDoctor!.profileImage==null?
+                          UserCubit.get(context).currentDoctor!.profileImage==null?
                           CircleAvatar(
                               radius: 70.r,
                               backgroundImage: AssetImage(sl<AppImages>().doctor,),
                           ) :
                           CircleAvatar(
                             radius: 70.r,
-                              backgroundImage:CachedNetworkImageProvider(LayoutCubit.get(context).currentDoctor!.profileImage!)
+                              backgroundImage:CachedNetworkImageProvider(UserCubit.get(context).currentDoctor!.profileImage!)
                           )
                           :
                           CircleAvatar(
@@ -202,24 +202,24 @@ class _EditDoctorScreenState extends State<EditDoctorScreen> {
                           function: () async {
                             if (formKey.currentState!.validate()) {
                               Map<String,dynamic>newInfo={};
-                              if(nameController.text!=LayoutCubit.get(context).currentDoctor!.name){
+                              if(nameController.text!=UserCubit.get(context).currentDoctor!.name){
                                 newInfo.addAll({'name':nameController.text});
                               }
-                              if(phoneController.text!=LayoutCubit.get(context).currentDoctor!.phone){
+                              if(phoneController.text!=UserCubit.get(context).currentDoctor!.phone){
                                 newInfo.addAll({'phone':phoneController.text});
                               }
-                              if(aboutController.text!=LayoutCubit.get(context).currentDoctor!.about){
+                              if(aboutController.text!=UserCubit.get(context).currentDoctor!.about){
                                 newInfo.addAll({'about':aboutController.text});
                               }
-                              if(addressController.text!=LayoutCubit.get(context).currentDoctor!.address){
+                              if(addressController.text!=UserCubit.get(context).currentDoctor!.address){
                                 newInfo.addAll({'address':nameController.text});
                               }
                               if (cubit.pickedImage != null) {
                                 await cubit.updateWithImageImage(newInfo: newInfo);
-                                await LayoutCubit.get(context).getCurrentDoctor();
+                                await UserCubit.get(context).getCurrentDoctor();
                               }else {
                                 await cubit.updateDoctor(newInfo);
-                                await LayoutCubit.get(context).getCurrentDoctor();
+                                await UserCubit.get(context).getCurrentDoctor();
                               }
                             }
                           },

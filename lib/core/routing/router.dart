@@ -1,10 +1,11 @@
 import 'package:care_flow/choose_role/business_logic/choose_role_cubit.dart';
 import 'package:care_flow/choose_role/choose_role.dart';
 import 'package:care_flow/core/di_container.dart';
-import 'package:care_flow/core/notifications/first_screen.dart';
-import 'package:care_flow/core/notifications/second_page.dart';
 import 'package:care_flow/core/routing/routes.dart';
-import 'package:care_flow/doctor/diagnoses/business_logic/diagnoses_cubit.dart';
+import 'package:care_flow/doctor/diagnoses/business_logic/diagnoses_cubit/diagnoses_cubit.dart';
+import 'package:care_flow/doctor/diagnoses/business_logic/diagnosis_details_cubit/diagnosis_details_cubit.dart';
+import 'package:care_flow/doctor/diagnoses/view/diagnosis_details_screen.dart';
+import 'package:care_flow/doctor/layout/business_logic/home_layout_cubit/home_layout_cubit.dart';
 import 'package:care_flow/doctor/layout/business_logic/new_layout_cubit/new_layout_cubit.dart';
 import 'package:care_flow/doctor/layout/view/screens/layout_screen.dart';
 import 'package:care_flow/doctor/layout/view/screens/new_layout.dart';
@@ -34,19 +35,20 @@ import 'package:care_flow/patient/layout/business_logic/patient_layout_cubit.dar
 import 'package:care_flow/patient/layout/view/patient_layout_screen.dart';
 import 'package:care_flow/patient/login/business_logic/patient_home_login_cubit/patient_home_login_cubit.dart';
 import 'package:care_flow/patient/login/view/screens/home_login_screen.dart';
-import 'package:care_flow/patient/requests/business_logic/requests_cubit.dart';
+import 'package:care_flow/patient/requests/business_logic/request_details/patient_request_details_cubit.dart';
+import 'package:care_flow/patient/requests/business_logic/requests/requests_cubit.dart';
 import 'package:care_flow/patient/requests/view/screens/sent_request_details.dart';
-import 'package:care_flow/patient/responses/business_logic/responses_cubit.dart';
+import 'package:care_flow/patient/responses/business_logic/responses_cubit/responses_cubit.dart';
+import 'package:care_flow/patient/responses/business_logic/responses_details_cubit/responses_details_cubit.dart';
 import 'package:care_flow/patient/responses/view/screens/response_details_screen.dart';
 import 'package:care_flow/patient/send_request/business_logic/send_request_cubit.dart';
 import 'package:care_flow/patient/send_request/view/screens/send_request_screen.dart';
 import 'package:care_flow/splash.dart';
-import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class AppRouter {
- const AppRouter();
+  const AppRouter();
 
   Route? generateRoute(RouteSettings settings) {
     switch (settings.name) {
@@ -67,9 +69,9 @@ class AppRouter {
         ));
       case Routes.layoutRoute:
         return _getPageRoute(MultiBlocProvider(providers: [
-          // BlocProvider(
-          //   create: (context) => LayoutCubit(),
-          // ),
+          BlocProvider(
+            create: (context) => HomeLayoutCubit(),
+          ),
           BlocProvider(
             create: (context) => sl<DiagnosesCubit>(),
           ),
@@ -98,8 +100,14 @@ class AppRouter {
         return _getPageRoute(BlocProvider(
           create: (context) => sl<RequestDetailsCubit>(),
           child: RequestDetailsScreen(
-            request: arg['request'],
+            requestId: arg['id'],
           ),
+        ));
+      case Routes.diagnosisDetailsRoute:
+        var arg = settings.arguments as Map;
+        return _getPageRoute(BlocProvider(
+          create: (context) => DiagnosisDetailsCubit(),
+          child: DiagnosisDetailsScreen(diagnosisId: arg['diagnosisId']),
         ));
       case Routes.completeNetworkPhotoRoute:
         var arg = settings.arguments as Map;
@@ -112,7 +120,7 @@ class AppRouter {
               request: arg['request'], coronaResult: arg['coronaResult']),
         ));
       case Routes.privateDiagnosisRoute:
-        var model=settings.arguments as Map<String,dynamic>;
+        var model = settings.arguments as Map<String, dynamic>;
         return _getPageRoute(PrivateDiagnosisDetails(model: model['model']));
 
       ////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -148,16 +156,22 @@ class AppRouter {
             doctorName: arg['doctorName'],
             doctorId: arg['doctorId'],
             doctorSpecialize: arg['doctorSpecialize'],
+            doctorDeviceToken: arg['doctorDeviceToken'],
           ),
         ));
-      case Routes.diagnosisDetailsRoute:
+      case Routes.responseDetailsRoute:
         var arg = settings.arguments as Map;
-        return _getPageRoute(ResponseDetailsScreen(
-          response: arg['response'],
+        return _getPageRoute(BlocProvider(
+          create: (context) => ResponsesDetailsCubit(),
+          child: ResponseDetailsScreen(
+            responseId: arg['responseId'],
+          ),
         ));
       case Routes.sentRequestDetailsRoute:
         var arg = settings.arguments as Map;
-        return _getPageRoute(SentRequestDetails(request: arg['request']));
+        return _getPageRoute(BlocProvider(
+            create: (context) => PatientRequestDetailsCubit(),
+            child: SentRequestDetails(requestId: arg['requestId'])));
       case Routes.diagnosisRoute:
         return _getPageRoute(const PatientHomeScreen());
       case Routes.medicineRecommenderRoute:
@@ -168,12 +182,6 @@ class AppRouter {
         return _getPageRoute(const LabLungDiseases());
       case Routes.labCheckRoute:
         return _getPageRoute(const CovidCheck());
-
-      case Routes.first:
-        return _getPageRoute(const FirstScreen());
-      case Routes.second:
-var message=settings.arguments as RemoteMessage;
-        return _getPageRoute(  SecondPage(message: message,));
     }
     return null;
   }

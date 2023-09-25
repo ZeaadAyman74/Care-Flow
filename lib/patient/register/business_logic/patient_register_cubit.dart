@@ -3,6 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:rxdart/streams.dart';
 part 'patient_register_state.dart';
 
 class PatientRegisterCubit extends Cubit<PatientRegisterState> {
@@ -75,6 +76,7 @@ class PatientRegisterCubit extends Cubit<PatientRegisterState> {
       age: age,
     );
     try {
+
       await FirebaseFirestore.instance
           .collection('patients')
           .doc(firebaseUserId)

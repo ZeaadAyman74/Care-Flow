@@ -1,8 +1,8 @@
 import 'dart:io';
 import 'package:care_flow/core/di_container.dart';
 import 'package:care_flow/core/utils/strings.dart';
-import 'package:care_flow/doctor/send_diagnosis/models/response_model.dart';
-import 'package:care_flow/patient/send_request/models/request_model.dart';
+import 'package:care_flow/doctor/send_diagnosis/models/response_details_model.dart';
+import 'package:care_flow/patient/send_request/models/request_details_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -16,10 +16,10 @@ class SendDiagnosisCubit extends Cubit<SendDiagnosisState> {
       BlocProvider.of<SendDiagnosisCubit>(context);
   var firebase = FirebaseFirestore.instance;
 
-  ResponseModel? response;
+  ResponseDetailsModel? response;
 
   Future<void> sendDiagnosis({
-    required final RequestModel currentRequest,
+    required final RequestDetailsModel currentRequest,
     required final String tips,
     required final String medicine,
     required final String? coronaCheck,
@@ -28,7 +28,12 @@ class SendDiagnosisCubit extends Cubit<SendDiagnosisState> {
   }) async {
     try {
       emit(SendDiagnosisLoad());
-      response = ResponseModel(
+   var doc=firebase
+          .collection('patients')
+          .doc(currentRequest.patientId)
+          .collection('responses')
+          .doc();
+      response = ResponseDetailsModel(
         medicine: medicine,
         tips: tips,
         coronaCheck: coronaCheck,
@@ -42,18 +47,17 @@ class SendDiagnosisCubit extends Cubit<SendDiagnosisState> {
         patientNotes: currentRequest.notes,
         xray: currentRequest.xrayImage,
         doctorImage: doctorImage,
+        time: Timestamp.now(),
+        responseId: doc.id,
       );
-      await firebase
-          .collection('patients')
-          .doc(currentRequest.patientId)
-          .collection('responses')
-          .doc()
-          .set(response!.toJson());
-      await firebase
+
+      await doc.set(response!.toJson());
+
+    await firebase
           .collection('doctors')
           .doc(sl<AppStrings>().uId)
           .collection('diagnoses')
-          .doc()
+          .doc(doc.id)
           .set(response!.toJson());
       emit(SendDiagnosisSuccess());
     } catch (error) {

@@ -1,5 +1,4 @@
 import 'package:care_flow/core/cache_helper.dart';
-import 'package:care_flow/core/fcm/fcm.dart';
 import 'package:care_flow/core/routing/routes.dart';
 import 'package:care_flow/core/di_container.dart';
 import 'package:care_flow/core/utils/app_extensions.dart';
@@ -53,7 +52,6 @@ class _LoginScreenState extends State<LoginScreen>
           sl<AppStrings>().uId = FirebaseAuth.instance.currentUser!.uid;
           await sl<CacheHelper>().putData(key: 'uId', value: sl<AppStrings>().uId);
           await sl<CacheHelper>().putData(key: 'role', value: 'd');
-        await sl<FirebaseApi>().refreshToken();
           _goToHome();
         } else if (state is LoginError) {
           sl<AppFunctions>().showToast(

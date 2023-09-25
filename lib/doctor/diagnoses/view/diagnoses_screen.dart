@@ -1,6 +1,6 @@
 import 'package:care_flow/core/di_container.dart';
 import 'package:care_flow/core/utils/snack_bar.dart';
-import 'package:care_flow/doctor/diagnoses/business_logic/diagnoses_cubit.dart';
+import 'package:care_flow/doctor/diagnoses/business_logic/diagnoses_cubit/diagnoses_cubit.dart';
 import 'package:care_flow/doctor/diagnoses/view/widgets/diagnoses_list.dart';
 import 'package:care_flow/doctor/receive_request/view/widgets/empty_widget.dart';
 import 'package:flutter/material.dart';

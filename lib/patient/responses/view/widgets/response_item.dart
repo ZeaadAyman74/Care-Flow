@@ -3,7 +3,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:care_flow/core/di_container.dart';
 import 'package:care_flow/core/utils/colors.dart';
 import 'package:care_flow/core/utils/images.dart';
-import 'package:care_flow/doctor/send_diagnosis/models/response_model.dart';
+import 'package:care_flow/patient/responses/models/response_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -17,8 +17,8 @@ final ResponseModel response;
       padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 10.h),
       decoration: BoxDecoration(
         border: Border.all(
-          color:response.isRead? Colors.grey:sl<MyColors>().primary,
-          width: response.isRead?1:2,
+          color:sl<MyColors>().primary,
+          width: 2,
         ),
         borderRadius: BorderRadius.all(Radius.circular(15.r)),
       ),

@@ -3,14 +3,14 @@ import 'package:care_flow/core/di_container.dart';
 import 'package:care_flow/core/utils/app_extensions.dart';
 import 'package:care_flow/core/utils/colors.dart';
 import 'package:care_flow/doctor/prediction/view/widgets/common_buttons.dart';
-import 'package:care_flow/patient/send_request/models/request_model.dart';
+import 'package:care_flow/patient/send_request/models/request_details_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class SaveResultDialog extends StatelessWidget {
   const SaveResultDialog({Key? key, required this.result,required this.request}) : super(key: key);
   final String result;
-  final RequestModel request;
+  final RequestDetailsModel request;
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
